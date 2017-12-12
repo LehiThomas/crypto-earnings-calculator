@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,  StyleSheet, Picker } from 'react-native';
 import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
+import axios from 'axios';
 
 class Calculator extends Component {
     constructor(){
@@ -12,6 +13,15 @@ class Calculator extends Component {
             BTC: 16297.99,
             maintenanceFee: .35
         };
+    }
+
+    componentDidMount() {
+        axios.get('https://blockchain.info/q/getdifficulty')
+        .then( res => {
+            this.state.difficulty = res.data;
+            console.log(this.state)
+        })
+        .catch( err => console.log(err));
     }
 
     componentDidUpdate(){
@@ -69,9 +79,7 @@ class Calculator extends Component {
 
     render() {
         return (
-            <Card
-                title='HELLO MATE'
-            >
+            <Card title='HELLO MATE'>
                 <View>
                     <View>
                         <FormLabel>Hashrate</FormLabel>
