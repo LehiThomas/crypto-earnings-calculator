@@ -9,10 +9,10 @@ class Calculator extends Component {
         this.state = {
             hashRate: 0,
             unit: "TH",
-            speed: 1000000000000,
-            BTC: 0,
-            maintenanceFee: .35,
+            BTC: 0,            
             //ticker: {}
+            dollarPerDay: 0,
+            bitcoinPerDay: 0
         };
     }
 
@@ -57,20 +57,36 @@ class Calculator extends Component {
             speed = 1000000000;
         } else if (unit === "MH") {
             speed = 1000000;
+        } else if (unit === "KH") {
+            speed = 1000;
         }
 
         return speed;
     }
 
-    calculate = () => {
+    calculateDay = () => {
         console.log(this.state);
 
         const hashRate = this.state.hashRate;
-        const unit = this.state.unit;
-        const speed = this.setSpeed(unit);
-        const maintenanceFee = this.state.maintenanceFee;
+        const unit = this.state.unit;        
         const BTC = this.state.BTC;
-        
+        const speed = this.setSpeed(unit);
+        const hashSpeed = speed * hashRate;
+        const maintenanceFee = .35;
+        const blockReward = 12.5;
+        const difficulty = this.state.difficulty;
+        // console.log("top:", blockReward * hashSpeed * 86400 );
+        // console.log("Bottom: ", difficulty * Math.pow(2,32))
+
+        let bitcoinPerDay = (blockReward * hashSpeed * 86400) / (difficulty * Math.pow(2,32));
+        bitcoinPerDay = bitcoinPerDay.toFixed(8)
+        let dollarPerDay = BTC*bitcoinPerDay;
+
+        this.setState({
+            bitcoinPerDay: bitcoinPerDay,
+            dollarPerDay: dollarPerDay.toFixed(2)
+        });
+
     } 
 
     render() {
@@ -93,10 +109,11 @@ class Calculator extends Component {
                     <Button 
                         title='CALCULATE' 
                         backgroundColor='#3D6DCC' 
-                        onPress={this.calculate} />
+                        onPress={this.calculateDay} />
                 </Card>
                 <Card>
-                    <Text>: </Text>
+                    <Text>1 BTC = { this.state.BTC }</Text>
+                    <Text>Daily Earning: ${ this.state.dollarPerDay } ({ this.state.bitcoinPerDay })</Text>
                 </Card>
             </View>
         )
@@ -111,3 +128,12 @@ const styles = StyleSheet.create({
 
 
 export default Calculator;
+
+
+// H = Hashrate (hashes / second)
+// D = Difficulty (Reference for values below)
+// B = Reward per Block (Reference for value below)
+// N = Number of days per month (default = 30)
+// S = Number of seconds per day (S = 60 * 60 * 24 = 86400)
+
+// N * B * H * 86400 / D * 2^32
