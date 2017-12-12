@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,  StyleSheet, Picker } from 'react-native';
 import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
+import axios from 'axios';
 
 class Calculator extends Component {
     constructor(){
@@ -12,6 +13,13 @@ class Calculator extends Component {
             powerConsumption: 0,
             kwCost: 0
         };
+
+        // axios.get('https://blockchain.info/q/getdifficulty')
+        //     .then( res => {
+        //         this.state.difficulty = res.data;
+        //         console.log(this.state)
+        //     })
+        //     .catch( err => console.log(err));
     }
 
     componentDidUpdate(){
@@ -62,6 +70,7 @@ class Calculator extends Component {
             <Card
                 title='HELLO MATE'
             >
+            <Text>BLAH!</Text>
             <View>
                 <View>
                     <FormLabel>Hashrate</FormLabel>
@@ -76,7 +85,11 @@ class Calculator extends Component {
                 </View>
             </View>  
                 <FormLabel>Power consumption (w)</FormLabel>
-                <FormInput onChangeText={(power) => this.setPowerCom(power)}/>
+                <FormInput
+                    onChangeText={(power) => this.setPowerCom(power)}
+                    keyboardType='numeric'
+                />
+
                 <FormLabel>Cost per KW/h ($)</FormLabel>
                 <FormInput onChangeText={(cost) => this.setKWcost(cost)}/>
                 <Button title='CALCULATE' backgroundColor='#3D6DCC' />
