@@ -9,8 +9,8 @@ class Calculator extends Component {
             hashRate: 0,
             unit: "TH",
             speed: 1000000000000,
-            powerConsumption: 0,
-            kwCost: 0
+            BTC: 16297.99,
+            maintenanceFee: .35
         };
     }
 
@@ -42,8 +42,9 @@ class Calculator extends Component {
         });
     }
 
-    setSpeed(){
-        let unit = this.state.unit;
+    setSpeed(unit){
+        let speed = 0;
+
         if (unit === "TH") {
             speed = 1000000000000;
         } else if (unit === "GH") {
@@ -52,34 +53,49 @@ class Calculator extends Component {
             speed = 1000000;
         }
 
-        this.setState({
-            speed: speed
-        });
+        return speed;
     }
+
+    calculate = () => {
+        console.log(this.state);
+
+        const hashRate = this.state.hashRate;
+        const unit = this.state.unit;
+        const speed = this.setSpeed(unit);
+        const maintenanceFee = this.state.maintenanceFee;
+
+        
+    } 
 
     render() {
         return (
             <Card
                 title='HELLO MATE'
             >
-            <View>
                 <View>
-                    <FormLabel>Hashrate</FormLabel>
-                    <FormInput onChangeText={(hash) => this.setHashRate(hash)}/>
-                </View>
-                <View>
-                    <Picker selectedValue={this.state.unit} mode='dropdown' onValueChange = {(unit) => this.setUnit(unit)}>
-                        <Picker.Item label = "TH/s" value = "TH" />
-                        <Picker.Item label = "GH/s" value = "GH" />
-                        <Picker.Item label = "MH/s" value = "MH" />
-                    </Picker>
-                </View>
-            </View>  
+                    <View>
+                        <FormLabel>Hashrate</FormLabel>
+                        <FormInput keyboardType="numeric" onChangeText={(hash) => this.setHashRate(hash)}/>
+                    </View>
+                    <View>
+                        <Picker selectedValue={this.state.unit} mode='dropdown' onValueChange = {(unit) => this.setUnit(unit)}>
+                            <Picker.Item label = "TH/s" value = "TH" />
+                            <Picker.Item label = "GH/s" value = "GH" />
+                            <Picker.Item label = "MH/s" value = "MH" />
+                        </Picker>
+                    </View>
+                </View>  
                 <FormLabel>Power consumption (w)</FormLabel>
-                <FormInput onChangeText={(power) => this.setPowerCom(power)}/>
+                <FormInput keyboardType="numeric" onChangeText={(power) => this.setPowerCom(power)}/>
                 <FormLabel>Cost per KW/h ($)</FormLabel>
-                <FormInput onChangeText={(cost) => this.setKWcost(cost)}/>
-                <Button title='CALCULATE' backgroundColor='#3D6DCC' />
+                <FormInput keyboardType="numeric" onChangeText={(cost) => this.setKWcost(cost)}/>
+                <Button 
+                    title='CALCULATE' 
+                    backgroundColor='#3D6DCC' 
+                    onPress={this.calculate} />
+            </Card>
+            <Card>
+                <Text>: </Text>
             </Card>
         )
     }
