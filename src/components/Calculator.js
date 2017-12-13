@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text,  StyleSheet, Picker } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
 import axios from 'axios';
+
+import Profits from './Profits';
+import Projection from './Projection';
 
 class Calculator extends Component {
     constructor(){
@@ -9,10 +12,12 @@ class Calculator extends Component {
         this.state = {
             hashRate: 0,
             unit: "TH",
-            BTC: 0,            
+            BTC: 0,    
+            maintenanceFee: .35,        
             //ticker: {}
             dollarPerDay: 0,
-            bitcoinPerDay: 0
+            bitcoinPerDay: 0,
+            showTheThing: false
         };
     }
 
@@ -65,41 +70,43 @@ class Calculator extends Component {
     }
 
     calculateDay = () => {
-        console.log(this.state);
-
         const hashRate = this.state.hashRate;
         const unit = this.state.unit;        
         const BTC = this.state.BTC;
-        const speed = this.setSpeed(unit);
-        const hashSpeed = speed * hashRate;
-        const maintenanceFee = .35;
+        const speed = this.setSpeed(unit);        
+        const maintenanceFee = this.state.maintenanceFee;
         const blockReward = 12.5;
         const difficulty = this.state.difficulty;
-        // console.log("top:", blockReward * hashSpeed * 86400 );
-        // console.log("Bottom: ", difficulty * Math.pow(2,32))
+
+        const hashSpeed = speed * hashRate;
+        const fees = hashRate * maintenanceFee;
+        const feesInBTC = fees/BTC;
 
         let bitcoinPerDay = (blockReward * hashSpeed * 86400) / (difficulty * Math.pow(2,32));
-        bitcoinPerDay = bitcoinPerDay.toFixed(8)
-        let dollarPerDay = BTC*bitcoinPerDay;
+        bitcoinPerDay = bitcoinPerDay;
+        let dollarPerDay = BTC*bitcoinPerDay - fees;
+        bitcoinPerDay = bitcoinPerDay - feesInBTC; 
 
         this.setState({
-            bitcoinPerDay: bitcoinPerDay,
-            dollarPerDay: dollarPerDay.toFixed(2)
+            bitcoinPerDay: bitcoinPerDay.toFixed(8),
+            dollarPerDay: dollarPerDay.toFixed(2),
+            showTheThing: true
         });
 
     } 
 
     render() {
         return (
-            <View>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Card title='HELLO MATE'>
-                    <View>
-                        <View>
+                    <View style={styles.formContainer}>
+                        <View style={styles.formHashRate}>
                             <FormLabel>Hashrate</FormLabel>
                             <FormInput keyboardType="numeric" onChangeText={(hash) => this.setHashRate(hash)}/>
                         </View>
-                        <View>
-                            <Picker selectedValue={this.state.unit} mode='dropdown' onValueChange = {(unit) => this.setUnit(unit)}>
+                        <View style={styles.pickerStyles} >
+                            <Picker selectedValue={this.state.unit} mode='dropdown' style={{padding:0}} 
+                                onValueChange = {(unit) => this.setUnit(unit)}>
                                 <Picker.Item label = "TH/s" value = "TH" />
                                 <Picker.Item label = "GH/s" value = "GH" />
                                 <Picker.Item label = "MH/s" value = "MH" />
@@ -111,18 +118,31 @@ class Calculator extends Component {
                         backgroundColor='#3D6DCC' 
                         onPress={this.calculateDay} />
                 </Card>
-                <Card>
-                    <Text>1 BTC = { this.state.BTC }</Text>
-                    <Text>Daily Earning: ${ this.state.dollarPerDay } ({ this.state.bitcoinPerDay })</Text>
-                </Card>
-            </View>
+                { this.state.showTheThing && 
+                <View>
+                    <Profits BTC={this.state.BTC} dollarPerDay={this.state.dollarPerDay} bitcoinPerDay={this.state.bitcoinPerDay} />
+                    <Projection />
+                </View>
+                }
+            </ScrollView>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    flexWidth:{
-        flex:1
+    
+    formContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'flex-end'
+    },
+    formHashRate:{
+        flex: 1,
+        marginBottom: 20
+    },
+    pickerStyles:{
+        flex: .5,
+        marginBottom: 15
     },
 })
 
