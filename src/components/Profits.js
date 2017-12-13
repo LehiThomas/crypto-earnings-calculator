@@ -6,7 +6,6 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 class Profits extends Component {
     constructor(props){
         super(props);
-        console.log(props);
         this.state = {
         }
     }

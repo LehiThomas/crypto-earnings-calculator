@@ -14,7 +14,7 @@ class Calculator extends Component {
             hashRate: 0,
             unit: "TH",
             BTC: 0,    
-            maintenanceFee: .35,        
+            maintenanceFee: .35,
             //ticker: {}
             dollarPerDay: 0,
             bitcoinPerDay: 0,
@@ -37,10 +37,6 @@ class Calculator extends Component {
         })
         .catch( err => console.log(err));
     }
- 
-    componentDidUpdate(){
-        console.log(this.state);    
-    }
 
     setHashRate(hash){
         this.setState({
@@ -49,8 +45,20 @@ class Calculator extends Component {
     }
 
     setUnit(unit){
+        let fee = .35;
+        if (unit === "TH") {
+            fee = .35;
+        } else if (unit === "GH") {
+            fee = .35 * .1;
+        } else if (unit === "MH") {
+            fee = .35 * .01;
+        } else if (unit === "KH") {
+            fee = .35 * .001;
+        }
+
         this.setState({
-            unit: unit
+            unit: unit,
+            maintenanceFee: fee,
         });
     }
 
@@ -122,7 +130,10 @@ class Calculator extends Component {
                 { this.state.showTheThing && 
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.dollarPerDay} bitcoinPerDay={this.state.bitcoinPerDay} />
-                    <Projection />
+                    <Projection 
+                        dollarPerDay={this.state.dollarPerDay} 
+                        bitcoinPerDay={this.state.bitcoinPerDay}
+                        hashRate={this.state.hashRate}  />
                     <Chart />
                 </View>
                 }

@@ -2,30 +2,47 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-
+import moment from 'moment';
 
 class Projection extends Component{
     constructor(props){
         super(props);
-        console.log(props);
         this.state = {
-            today: new Date()
+            today: moment().format("MMM Do"),
+            earnedPerDay: this.props.dollarPerDay - 0,
+            tableData: []
         }
-        console.log(this.state);
+    }
+
+    getNewDailyEarnings = (yesterday) => {
+        return (yesterday / .99).toFixed(2);
+    }
+
+    createProjectionsByDay = () => {
+        for (let index = 0; index < 30; index++) {
+            this.state.tableData[index] = [];
+            this.state.tableData[index][0] = moment().add(index, 'd').format("MMM Do");
+
+            if (index > 0) {
+                this.state.tableData[index][1] = this.getNewDailyEarnings(this.state.tableData[index-1][1]);
+            } else {
+                this.state.tableData[index][1] = this.state.earnedPerDay;
+            }
+        }
     }
 
     render(){
-        const tableHead = ['Head', 'Head2', 'Head3', 'Head4'];
+        const tableHead = ['Date', '$/Day', 'TH/s'];
         const tableData = [
           ['1', '2', '3', '4'],
           ['a', 'b', 'c', 'd'],
         ];
-
+        this.createProjectionsByDay();
         return (
             <Card title="Future Projections" style={styles.container}>
                 <Table>
                     <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
-                    <Rows data={tableData} style={styles.row} textStyle={styles.text}/>
+                    <Rows data={this.state.tableData} style={styles.row} textStyle={styles.text}/>
                 </Table>
             </Card>
         )
