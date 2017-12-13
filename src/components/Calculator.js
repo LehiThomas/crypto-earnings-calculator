@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Profits from './Profits';
 import Projection from './Projection';
+import Chart from './Chart';
 
 class Calculator extends Component {
     constructor(){
@@ -122,6 +123,7 @@ class Calculator extends Component {
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.dollarPerDay} bitcoinPerDay={this.state.bitcoinPerDay} />
                     <Projection />
+                    <Chart />
                 </View>
                 }
             </ScrollView>
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     pickerStyles:{
-        flex: .5,
+        flex: .6,
         marginBottom: 15
     },
 })
