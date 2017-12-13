@@ -22,7 +22,7 @@ class Projection extends Component{
         ];
 
         return (
-            <Card title="Future Projections">
+            <Card title="Future Projections" style={styles.container}>
                 <Table>
                     <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
                     <Rows data={tableData} style={styles.row} textStyle={styles.text}/>
@@ -35,7 +35,8 @@ class Projection extends Component{
 const styles = StyleSheet.create({
     head: { height: 40, backgroundColor: '#f1f8ff' },
     text: { marginLeft: 5 },
-    row: { height: 30 }
+    row: { height: 30 },
+    container: { marginBottom: 50 }
   })
 
 export default Projection;

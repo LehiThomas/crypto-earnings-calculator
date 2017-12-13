@@ -97,7 +97,7 @@ class Calculator extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Card title='HELLO MATE'>
                     <View style={styles.formContainer}>
                         <View style={styles.formHashRate}>
@@ -130,7 +130,9 @@ class Calculator extends Component {
 }
 
 const styles = StyleSheet.create({
-    
+    contentContainer: {
+        paddingBottom: 100
+    },
     formContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
