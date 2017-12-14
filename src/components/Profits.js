@@ -41,12 +41,6 @@ class Profits extends Component {
                     <Text>Monthly: ${ this.perMonth(this.props.dollarPerDay).toFixed(2) } (Ƀ { this.perMonth(this.props.bitcoinPerDay).toFixed(8) })</Text>
                     <Text>Yearly: ${ this.perYear(this.props.dollarPerDay).toFixed(2) } (Ƀ { this.perYear(this.props.bitcoinPerDay).toFixed(8) })</Text>
                 </Card>
-                <Card title={cardTitle} >
-                    <Table>
-                        <Row data={tableHead} style={styles.head} textStyle={styles.text}/>
-                        <Rows data={tableData} style={styles.row} textStyle={styles.text}/>
-                    </Table>
-                </Card>
             </View>
         );
     }
