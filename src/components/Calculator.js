@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
-import axios from 'axios';
+import { BlockChainService } from '../services/BlockChainService';
+import { HASHRATES } from '../consts/HASHRATES';
 
 import Profits from './Profits';
 import Projection from './Projection';
@@ -22,24 +23,15 @@ class Calculator extends Component {
             showTheThing: false
         };
 
-        this.setHashRate = this.setHashRate.bind(this);
+        this.loadExternalData();
     }
 
-    componentDidMount() {
-        axios.get('https://blockchain.info/q/getdifficulty')
-        .then( res => {
-            this.state.difficulty = res.data;
-        })
-        .catch( err => console.log(err));
-
-
-        axios.get('https://blockchain.info/ticker')
-        .then( res => {
-            //this.state.ticker = res.data;
-            this.state.BTC = res.data.USD.last;
-        })
-        .catch( err => console.log(err));
+    async loadExternalData(){
+        this.state.difficulty = await BlockChainService.getDifficulty();
+        this.state.BTC = await BlockChainService.getBTCPrice();
     }
+
+    componentDidMount() {}
 
     setHashRate(hash){
         this.setState({
