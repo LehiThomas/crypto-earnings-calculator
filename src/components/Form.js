@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Picker } from 'react-native';
 import { Card, FormLabel, FormInput, Button } from 'react-native-elements';
+import { HASHUNITS } from '../consts/HASHUNITS';
 
 class Form extends Component {
     constructor(props){
@@ -24,11 +25,11 @@ class Form extends Component {
                         <FormInput keyboardType="numeric" onChangeText={(hash) => this.setHashRate(hash)}/>
                     </View>
                     <View style={styles.pickerStyles} >
-                        <Picker selectedValue={this.props.unit} mode='dropdown' style={{padding:0}} 
-                            onValueChange = {(unit) => this.setUnit(unit)}>
-                            <Picker.Item label = "TH/s" value = "TH" />
-                            <Picker.Item label = "GH/s" value = "GH" />
-                            <Picker.Item label = "MH/s" value = "MH" />
+                        <Picker selectedValue={this.props.unit}
+                                mode='dropdown'
+                                style={{padding:0}} 
+                                onValueChange = {(unit) => this.setUnit(unit)}>
+                            { HASHUNITS.map((unit) => <Picker.Item label={unit.label} value={unit} key={unit}/>) }
                         </Picker>
                     </View>
                 </View>

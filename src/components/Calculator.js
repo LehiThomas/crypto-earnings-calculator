@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
 import { BlockChainService } from '../services/BlockChainService';
-import { HASHRATES } from '../consts/HASHRATES';
+import { HASHUNITS } from '../consts/HASHUNITS';
 
 import Profits from './Profits';
 import Projection from './Projection';
@@ -14,10 +14,9 @@ class Calculator extends Component {
         super();
         this.state = {
             hashRate: 0,
-            unit: "TH",
+            unit: HASHUNITS[0],
             BTC: 0,    
             maintenanceFee: .35,
-            //ticker: {}
             dollarPerDay: 0,
             bitcoinPerDay: 0,
             showTheThing: false
@@ -42,20 +41,11 @@ class Calculator extends Component {
         });
     }
 
-    setUnit(unit){
-        let fee = .35;
-        if (unit === "TH") {
-            fee = .35;
-        } else if (unit === "GH") {
-            fee = .35 * .1;
-        } else if (unit === "MH") {
-            fee = .35 * .01;
-        } else if (unit === "KH") {
-            fee = .35 * .001;
-        }
-        
+    setUnit(unitKey){
+        let unit = HASHUNITS.find(unit => unit.key === unitKey);
         this.setState({
-            unit: unit
+            unit: unit.key,
+            maintenanceFee: unit.fee
         });
     }
 
