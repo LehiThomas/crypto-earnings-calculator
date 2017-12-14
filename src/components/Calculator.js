@@ -6,6 +6,7 @@ import axios from 'axios';
 import Profits from './Profits';
 import Projection from './Projection';
 import Chart from './Chart';
+import Form from './Form';
 
 class Calculator extends Component {
     constructor(){
@@ -20,6 +21,8 @@ class Calculator extends Component {
             bitcoinPerDay: 0,
             showTheThing: false
         };
+
+        this.setHashRate = this.setHashRate.bind(this);
     }
 
     componentDidMount() {
@@ -107,26 +110,7 @@ class Calculator extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
-                <Card title='HELLO MATE'>
-                    <View style={styles.formContainer}>
-                        <View style={styles.formHashRate}>
-                            <FormLabel>Hashrate</FormLabel>
-                            <FormInput keyboardType="numeric" onChangeText={(hash) => this.setHashRate(hash)}/>
-                        </View>
-                        <View style={styles.pickerStyles} >
-                            <Picker selectedValue={this.state.unit} mode='dropdown' style={{padding:0}} 
-                                onValueChange = {(unit) => this.setUnit(unit)}>
-                                <Picker.Item label = "TH/s" value = "TH" />
-                                <Picker.Item label = "GH/s" value = "GH" />
-                                <Picker.Item label = "MH/s" value = "MH" />
-                            </Picker>
-                        </View>
-                    </View>
-                    <Button 
-                        title='CALCULATE' 
-                        backgroundColor='#3D6DCC' 
-                        onPress={this.calculateDay} />
-                </Card>
+                <Form unit={this.state.unit} setHash={this.setHashRate} setUnit={this.setUnit} calculate={this.calculateDay}/>
                 { this.state.showTheThing && 
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.dollarPerDay} bitcoinPerDay={this.state.bitcoinPerDay} />
