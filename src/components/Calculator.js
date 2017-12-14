@@ -24,6 +24,9 @@ class Calculator extends Component {
         };
 
         this.loadExternalData();
+
+        this.setHashRate = this.setHashRate.bind(this);
+        this.setUnit = this.setUnit.bind(this);
     }
 
     async loadExternalData(){
@@ -31,7 +34,7 @@ class Calculator extends Component {
         this.state.BTC = await BlockChainService.getBTCPrice();
     }
 
-    componentDidMount() {}
+    componentDidUpdate() {}
 
     setHashRate(hash){
         this.setState({
@@ -50,10 +53,9 @@ class Calculator extends Component {
         } else if (unit === "KH") {
             fee = .35 * .001;
         }
-
+        
         this.setState({
-            unit: unit,
-            maintenanceFee: fee,
+            unit: unit
         });
     }
 
