@@ -22,14 +22,18 @@ class Form extends Component {
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
                         <FormLabel>Hashrate</FormLabel>
-                        <FormInput keyboardType="numeric" onChangeText={(hash) => this.setHashRate(hash)}/>
+                        <FormInput
+                            keyboardType="numeric"
+                            onChangeText={(hash) => this.setHashRate(hash)}
+                        />
                     </View>
                     <View style={styles.pickerStyles} >
-                        <Picker selectedValue={this.props.unit}
-                                mode='dropdown'
-                                style={{padding:0}} 
-                                onValueChange = {(unit) => this.setUnit(unit)}>
-                            { HASHUNITS.map((unit) => <Picker.Item label={unit.label} value={unit} key={unit}/>) }
+                        <Picker
+                            selectedValue={this.props.unit}
+                            mode='dropdown'
+                            style={{padding:0}} 
+                            onValueChange = {(unit) => this.setUnit(unit)}>
+                                { HASHUNITS.map((unit) => <Picker.Item label={unit.label} value={unit} key={unit}/>) }
                         </Picker>
                     </View>
                 </View>

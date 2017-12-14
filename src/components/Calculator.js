@@ -15,8 +15,7 @@ class Calculator extends Component {
         this.state = {
             hashRate: 0,
             unit: HASHUNITS[0],
-            BTC: 0,    
-            maintenanceFee: .35,
+            BTC: 0,
             dollarPerDay: 0,
             bitcoinPerDay: 0,
             showTheThing: false
@@ -33,49 +32,25 @@ class Calculator extends Component {
         this.state.BTC = await BlockChainService.getBTCPrice();
     }
 
-    componentDidUpdate() {}
-
     setHashRate(hash){
         this.setState({
             hashRate: hash - 0
         });
     }
 
-    setUnit(unitKey){
-        let unit = HASHUNITS.find(unit => unit.key === unitKey);
-        this.setState({
-            unit: unit.key,
-            maintenanceFee: unit.fee
-        });
-    }
-
-    setSpeed(unit){
-        let speed = 0;
-
-        if (unit === "TH") {
-            speed = 1000000000000;
-        } else if (unit === "GH") {
-            speed = 1000000000;
-        } else if (unit === "MH") {
-            speed = 1000000;
-        } else if (unit === "KH") {
-            speed = 1000;
-        }
-
-        return speed;
+    setUnit(unit){
+        this.setState({unit});
     }
 
     calculateDay = () => {
         const hashRate = this.state.hashRate;
         const unit = this.state.unit;        
         const BTC = this.state.BTC;
-        const speed = this.setSpeed(unit);        
-        const maintenanceFee = this.state.maintenanceFee;
         const blockReward = 12.5;
         const difficulty = this.state.difficulty;
 
-        const hashSpeed = speed * hashRate;
-        const fees = hashRate * maintenanceFee;
+        const hashSpeed = unit.speed * hashRate;
+        const fees = hashRate * unit.fee;
         const feesInBTC = fees/BTC;
 
         let bitcoinPerDay = (blockReward * hashSpeed * 86400) / (difficulty * Math.pow(2,32));
