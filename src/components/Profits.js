@@ -23,7 +23,7 @@ class Profits extends Component {
     }
 
     render(){
-        let cardTitle = `1 BTC = ${ this.props.BTC }`;
+        let cardTitle = `Projection if not reinvested`;
 
         const tableHead = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
         const tableData = [

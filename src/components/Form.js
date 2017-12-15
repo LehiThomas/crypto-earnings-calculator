@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Picker } from 'react-native';
+import { View, Text, StyleSheet, Picker } from 'react-native';
 import { Card, FormLabel, FormInput, Button } from 'react-native-elements';
 import { HASHUNITS } from '../consts/HASHUNITS';
 
@@ -41,6 +41,7 @@ class Form extends Component {
                     title='CALCULATE' 
                     backgroundColor='#3D6DCC' 
                     onPress={this.props.calculate} />
+                <Text style={styles.btcPrice}>1 BTC = ${ this.props.BTC }</Text>
             </Card>
         );
     }
@@ -60,6 +61,10 @@ const styles = StyleSheet.create({
         flex: .6,
         marginBottom: 15
     },
+    btcPrice: {
+        textAlign: 'center',
+        marginTop: 10
+    }
 })
 
 export default Form;

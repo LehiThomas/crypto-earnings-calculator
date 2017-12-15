@@ -72,7 +72,7 @@ class Calculator extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
-                <Form unit={this.state.unit} setHash={this.setHashRate} setUnit={this.setUnit} calculate={this.calculateDay}/>
+                <Form BTC={this.state.BTC} unit={this.state.unit} setHash={this.setHashRate} setUnit={this.setUnit} calculate={this.calculateDay}/>
                 { this.state.showTheThing && 
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.USDPerDayWithFee} bitcoinPerDay={this.state.BTCPerDayWithFee} />
