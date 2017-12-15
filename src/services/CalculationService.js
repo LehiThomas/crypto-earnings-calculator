@@ -28,7 +28,7 @@ export class CalculationService {
 	}
 
 	static reinvestCalc(hashRate, unit, BTC, difficulty, days = 1, day = 0, calcDays = []) {
-		let hashPrice = .15 / 1000000000;
+		let hashPrice = 150 / 1000000000000;
 		let calcDay = this.dayCalc(hashRate, unit, BTC, difficulty);
 		calcDays.push(calcDay);
 		hashRate += calcDay.USDPerDayWithFee / hashPrice;
