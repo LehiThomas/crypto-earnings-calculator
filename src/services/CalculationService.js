@@ -1,8 +1,10 @@
 export class CalculationService {
-	constructor(){}
+	constructor(){
+		this.calculateDay.bind(this);
+		this.reinvestCalc.bind(this);
+	}
 	
-
-	static calculateDay = (hashRate, unit, BTC, difficulty) => {
+	static dayCalc(hashRate, unit, BTC, difficulty) {
 		const blockReward = 12.5;
 		const secondsPerDay = 86400;
 
@@ -23,5 +25,14 @@ export class CalculationService {
 			USDTotalFee: (USDPerDay - USDPerDayWithFee).toFixed(2),
 			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee).toFixed(8)
 		}
+	}
+
+	static reinvestCalc(hashRate, unit, BTC, difficulty, days = 1, day = 0, calcDays = []) {
+		let hashPrice = .15 / 1000000000;
+		let calcDay = this.dayCalc(hashRate, unit, BTC, difficulty);
+		calcDays.push(calcDay);
+		hashRate += calcDay.USDPerDayWithFee / hashPrice;
+		day++;
+		return day === days ? calcDays : this.reinvestCalc(hashRate, unit, BTC, difficulty, days, day, calcDays);
 	}
 }

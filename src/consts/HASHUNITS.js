@@ -7,7 +7,7 @@ export const HASHUNITS = [
 	},
 	{
 		key: "GH",
-		label: 'TH/s',
+		label: 'GH/s',
 		speed: 1000000000,
 		fee: .035
 	},

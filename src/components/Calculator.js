@@ -44,13 +44,25 @@ class Calculator extends Component {
     }
 
     calculateDay = () => {
-        let calcRes = CalculationService.calculateDay(
+        let calcRes = CalculationService.dayCalc(
             this.state.hashRate,
             this.state.unit,
             this.state.BTC,
             this.state.difficulty
         );
         calcRes.showTheThing = true;
+
+        let days = 10;
+        let test = CalculationService.reinvestCalc(
+            this.state.hashRate,
+            this.state.unit,
+            this.state.BTC,
+            this.state.difficulty,
+            days
+        );
+
+        console.log(test);
+
         this.setState(calcRes);
     } 
 
