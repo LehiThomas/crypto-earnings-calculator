@@ -18,7 +18,7 @@ class Form extends Component {
 
     render(){
         return (
-            <Card title='HELLO MATE'>
+            <Card title='Enter your Hashrate'>
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
                         <FormLabel>Hashrate</FormLabel>
