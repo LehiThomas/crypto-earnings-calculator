@@ -6,7 +6,7 @@ import { CalculationService } from '../services/CalculationService';
 import { HASHUNITS } from '../consts/HASHUNITS';
 
 import Profits from './Profits';
-import Projection from './Projection';
+// import Projection from './Projection';
 import Chart from './Chart';
 import Form from './Form';
 
@@ -15,7 +15,7 @@ class Calculator extends Component {
         super();
         this.state = {
             hashRate: 0,
-            unit: HASHUNITS[0],
+            unit: HASHUNITS.find(unit => unit.key = "TH"),
             BTC: 0,
             dollarPerDay: 0,
             bitcoinPerDay: 0,
@@ -73,10 +73,10 @@ class Calculator extends Component {
                 { this.state.showTheThing && 
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.USDPerDayWithFee} bitcoinPerDay={this.state.BTCPerDayWithFee} />
-                    <Projection 
+                    {/* <Projection 
                         dollarPerDay={this.state.USDPerDayWithFee} 
                         bitcoinPerDay={this.state.BTCPerDayWithFee}
-                        hashRate={this.state.hashRate}  />
+                        hashRate={this.state.hashRate}  /> */}
                     <Chart />
                 </View>
                 }
