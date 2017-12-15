@@ -18,14 +18,14 @@ class Form extends Component {
 
     render(){
         return (
-            <Card title='HELLO MATE'>
+            <Card title='Enter your Hashrate'>
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
                         <FormLabel>Hashrate</FormLabel>
-                        <FormInput
-                            keyboardType="numeric"
-                            onChangeText={(hash) => this.setHashRate(hash)}
-                        />
+                        <FormInput 
+                            keyboardType="numeric" 
+                            onSubmitEditing={this.props.calculate}
+                            onChangeText={(hash) => this.setHashRate(hash)}/>
                     </View>
                     <View style={styles.pickerStyles} >
                         <Picker

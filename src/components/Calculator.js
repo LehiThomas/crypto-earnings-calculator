@@ -88,20 +88,7 @@ class Calculator extends Component {
 const styles = StyleSheet.create({
     contentContainer: {
         paddingBottom: 100
-    },
-    formContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'flex-end'
-    },
-    formHashRate:{
-        flex: 1,
-        marginBottom: 20
-    },
-    pickerStyles:{
-        flex: .6,
-        marginBottom: 15
-    },
+    }
 })
 
 
