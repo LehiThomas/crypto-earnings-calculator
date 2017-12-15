@@ -4,6 +4,8 @@ import { Card } from 'react-native-elements';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import moment from 'moment';
 
+import { HASHFLARE_PRICES } from '../utils/HASHFLARE_PRICES';
+
 class Projection extends Component{
     constructor(props){
         super(props);
@@ -11,23 +13,36 @@ class Projection extends Component{
             today: moment().format("MMM Do"),
             earnedPerDay: this.props.dollarPerDay - 0,
             tableData: []
-        }
+        }        
     }
 
     getNewDailyEarnings = (yesterday) => {
         return (yesterday / .99).toFixed(2);
     }
 
+    getNewHashRate(index){
+        for (let i = 0; i < HASHFLARE_PRICES.length; i++) {
+            if(this.state.tableData[index][1] == HASHFLARE_PRICES[i].cost){
+                this.state.tableData[index][2] = HASHFLARE_PRICES[i].th;
+            } else if(this.state.tableData[index][1] > HASHFLARE_PRICES[i].cost && this.state.tableData[index][1] < HASHFLARE_PRICES[i+1].cost) {
+                this.state.tableData[index][2] = HASHFLARE_PRICES[i].th;
+            }
+        }
+    }
+
     createProjectionsByDay = () => {
-        for (let index = 0; index < 30; index++) {
+        this.state.tableData[0] = []
+        this.state.tableData[0][0] = this.state.today;   
+        this.state.tableData[0][1] = this.state.earnedPerDay;
+        this.state.tableData[0][2] = this.getNewHashRate(0);
+
+        for (let index = 1; index < 15; index++) {
             this.state.tableData[index] = [];
             this.state.tableData[index][0] = moment().add(index, 'd').format("MMM Do");
 
-            if (index > 0) {
-                this.state.tableData[index][1] = this.getNewDailyEarnings(this.state.tableData[index-1][1]);
-            } else {
-                this.state.tableData[index][1] = this.state.earnedPerDay;
-            }
+            this.state.tableData[index][1] = this.getNewDailyEarnings(this.state.tableData[index-1][1]);
+    
+            this.getNewHashRate(index);
         }
     }
 
