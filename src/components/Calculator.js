@@ -6,7 +6,7 @@ import { CalculationService } from '../services/CalculationService';
 import { HASHUNITS } from '../consts/HASHUNITS';
 
 import Profits from './Profits';
-// import Projection from './Projection';
+import Projection from './Projection';
 import Chart from './Chart';
 import Form from './Form';
 
@@ -52,7 +52,12 @@ class Calculator extends Component {
         );
         calcRes.showTheThing = true;
 
-        let days = 10;
+
+
+        this.setState(calcRes);
+    } 
+
+    reinvest = (days) => {
         let test = CalculationService.reinvestCalc(
             this.state.hashRate,
             this.state.unit,
@@ -62,9 +67,7 @@ class Calculator extends Component {
         );
 
         console.log(test);
-
-        this.setState(calcRes);
-    } 
+    }
 
     render() {
         return (
@@ -73,10 +76,8 @@ class Calculator extends Component {
                 { this.state.showTheThing && 
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.USDPerDayWithFee} bitcoinPerDay={this.state.BTCPerDayWithFee} />
-                    {/* <Projection 
-                        dollarPerDay={this.state.USDPerDayWithFee} 
-                        bitcoinPerDay={this.state.BTCPerDayWithFee}
-                        hashRate={this.state.hashRate}  /> */}
+                    <Projection 
+                        reinvest={this.reinvest} />
                     <Chart />
                 </View>
                 }

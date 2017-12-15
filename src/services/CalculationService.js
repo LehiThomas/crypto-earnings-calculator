@@ -25,7 +25,8 @@ export class CalculationService {
 			USDPerDayWithFee: USDPerDayWithFee.toFixed(2),
 			BTCPerDayWithFee: BTCPerDayWithFee.toFixed(8),
 			USDTotalFee: (USDPerDay - USDPerDayWithFee).toFixed(2),
-			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee).toFixed(8)
+			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee).toFixed(8),
+			hashRate: parseFloat(hashRate)
 		}
 	}
 
