@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, Picker } from 'react-native';
 import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
 import { BlockChainService } from '../services/BlockChainService';
+import { CalculationService } from '../services/CalculationService';
 import { HASHUNITS } from '../consts/HASHUNITS';
 
 import Profits from './Profits';
@@ -43,26 +44,14 @@ class Calculator extends Component {
     }
 
     calculateDay = () => {
-        const hashRate = this.state.hashRate;
-        const unit = this.state.unit;        
-        const BTC = this.state.BTC;
-        const blockReward = 12.5;
-        const difficulty = this.state.difficulty;
-
-        const hashSpeed = unit.speed * hashRate;
-        const fees = hashRate * unit.fee;
-        const feesInBTC = fees/BTC;
-
-        let bitcoinPerDay = (blockReward * hashSpeed * 86400) / (difficulty * Math.pow(2,32));
-        bitcoinPerDay = bitcoinPerDay;
-        let dollarPerDay = BTC*bitcoinPerDay - fees;
-        bitcoinPerDay = bitcoinPerDay - feesInBTC; 
-
-        this.setState({
-            bitcoinPerDay: bitcoinPerDay.toFixed(8),
-            dollarPerDay: dollarPerDay.toFixed(2),
-            showTheThing: true
-        });
+        let calcRes = CalculationService.calculateDay(
+            this.state.hashRate,
+            this.state.unit,
+            this.state.BTC,
+            this.state.difficulty
+        );
+        calcRes.showTheThing = true;
+        this.setState(calcRes);
     } 
 
     render() {
@@ -71,10 +60,10 @@ class Calculator extends Component {
                 <Form unit={this.state.unit} setHash={this.setHashRate} setUnit={this.setUnit} calculate={this.calculateDay}/>
                 { this.state.showTheThing && 
                 <View>
-                    <Profits BTC={this.state.BTC} dollarPerDay={this.state.dollarPerDay} bitcoinPerDay={this.state.bitcoinPerDay} />
+                    <Profits BTC={this.state.BTC} dollarPerDay={this.state.USDPerDayWithFee} bitcoinPerDay={this.state.BTCPerDayWithFee} />
                     <Projection 
-                        dollarPerDay={this.state.dollarPerDay} 
-                        bitcoinPerDay={this.state.bitcoinPerDay}
+                        dollarPerDay={this.state.USDPerDayWithFee} 
+                        bitcoinPerDay={this.state.BTCPerDayWithFee}
                         hashRate={this.state.hashRate}  />
                     <Chart />
                 </View>

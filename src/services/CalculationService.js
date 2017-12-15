@@ -1,0 +1,27 @@
+export class CalculationService {
+	constructor(){}
+	
+
+	static calculateDay = (hashRate, unit, BTC, difficulty) => {
+		const blockReward = 12.5;
+		const secondsPerDay = 86400;
+
+		let hashSpeed = unit.speed * hashRate;
+		let fees = hashRate * unit.fee;
+		let feesInBTC = fees/BTC;
+
+		let BTCPerDay = (blockReward * hashSpeed * secondsPerDay) / (difficulty * Math.pow(2,32));
+		let USDPerDay = BTC * BTCPerDay;
+		let USDPerDayWithFee = BTC * BTCPerDay - fees;
+		let BTCPerDayWithFee = BTCPerDay - feesInBTC; 
+
+		return {
+			BTCPerDay: BTCPerDay.toFixed(8),
+			USDPerDay: USDPerDay.toFixed(2),
+			USDPerDayWithFee: USDPerDayWithFee.toFixed(2),
+			BTCPerDayWithFee: BTCPerDayWithFee.toFixed(8),
+			USDTotalFee: (USDPerDay - USDPerDayWithFee).toFixed(2),
+			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee).toFixed(8)
+		}
+	}
+}
