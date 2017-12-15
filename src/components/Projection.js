@@ -24,7 +24,7 @@ class Projection extends Component{
 
     render(){
         return (
-            <Card title="Future Projections" style={styles.container}>
+            <Card title="Reinvestment Projections" style={styles.container}>
                 <FormLabel>Reinvest for ? days: </FormLabel>
                 <FormInput 
                     keyboardType="numeric" 
