@@ -41,7 +41,7 @@ class Form extends Component {
                     </View>                    
                 </View>
                 <View style={styles.daysForm} >
-                        <FormLabel>Reinvest for ? days: </FormLabel>
+                        <FormLabel># of Days to Reinvest: </FormLabel>
                         <FormInput 
                             keyboardType="numeric" 
                             onChangeText={(days) => this.setDays(days)}/>
@@ -50,7 +50,6 @@ class Form extends Component {
                     title='CALCULATE'
                     backgroundColor='#3D6DCC'
                     onPress={this.props.reinvest} />
-                <Text style={styles.btcPrice}>1 BTC = ${ this.props.BTC }</Text>
             </Card>
         );
     }
@@ -73,10 +72,6 @@ const styles = StyleSheet.create({
     daysForm: {
         flex: 1,
         marginBottom: 20
-    },
-    btcPrice: {
-        textAlign: 'center',
-        marginTop: 10
     }
 })
 

@@ -51,24 +51,6 @@ class Calculator extends Component {
         this.setState({days});
     }
 
-    // calculateDay = () => {
-    //     let calcRes = CalculationService.dayCalc(
-    //         this.state.hashRate,
-    //         this.state.unit,
-    //         this.state.BTC,
-    //         this.state.difficulty
-    //     );
-
-    //     this.setState({
-    //         ...calcRes,
-    //         dollarPerDay: calcRes.USDPerDayWithFee,
-    //         bitcoinPerDay: calcRes.BTCPerDayWithFee,
-    //         showTheThing: true
-    //     });
-
-    //     this.reinvest();
-    // } 
-
     reinvest = () => {
         let reinvestmentData = CalculationService.reinvestCalc(
             this.state.hashRate,
@@ -109,19 +91,7 @@ class Calculator extends Component {
 }
 
 const styles = StyleSheet.create({
-    contentContainer: {
-        paddingBottom: 100
-    }
 })
 
 
 export default Calculator;
-
-
-// H = Hashrate (hashes / second)
-// D = Difficulty (Reference for values below)
-// B = Reward per Block (Reference for value below)
-// N = Number of days per month (default = 30)
-// S = Number of seconds per day (S = 60 * 60 * 24 = 86400)
-
-// N * B * H * 86400 / D * 2^32

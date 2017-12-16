@@ -38,3 +38,12 @@ export class CalculationService {
 		return day == days ? calcDays : this.reinvestCalc(hashRate, unit, BTC, difficulty, days, day, calcDays);
 	}
 }
+
+
+// H = Hashrate (hashes / second)
+// D = Difficulty (Reference for values below)
+// B = Reward per Block (Reference for value below)
+// N = Number of days per month (default = 30)
+// S = Number of seconds per day (S = 60 * 60 * 24 = 86400)
+
+// N * B * H * 86400 / D * 2^32

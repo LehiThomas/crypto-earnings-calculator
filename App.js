@@ -1,15 +1,23 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import { Calculator, Header } from './src/components';
+import { Calculator, Header, Footer } from './src/components';
 
 export default class App extends React.Component {
   render() {
     return (
-      <View>
+      <View style={styles.appContainer}>
         <Header />
         <Calculator />
+        <Footer />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  appContainer: {
+	flex: 1,
+	flexDirection: 'column'
+  }
+});
