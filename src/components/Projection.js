@@ -18,7 +18,6 @@ class Projection extends Component{
         this.setState({
             days: days,
         });
-        console.log(this.state.days)
     }
 
     reinvest = () => {

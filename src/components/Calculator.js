@@ -9,6 +9,7 @@ import Profits from './Profits';
 import Projection from './Projection';
 import Chart from './Chart';
 import Form from './Form';
+import ReinvestmentDescription from './ReinvestmentDescription';
 
 class Calculator extends Component {
     constructor(){
@@ -19,13 +20,16 @@ class Calculator extends Component {
             BTC: 0,
             dollarPerDay: 0,
             bitcoinPerDay: 0,
-            showTheThing: false
+            showTheThing: false,
+            reinvestmentData: [],
+            days: 0
         };
 
         this.loadExternalData();
 
         this.setHashRate = this.setHashRate.bind(this);
         this.setUnit = this.setUnit.bind(this);
+        this.setDays = this.setDays.bind(this);
     }
 
     async loadExternalData(){
@@ -43,39 +47,60 @@ class Calculator extends Component {
         this.setState({unit});
     }
 
-    calculateDay = () => {
-        let calcRes = CalculationService.dayCalc(
-            this.state.hashRate,
-            this.state.unit,
-            this.state.BTC,
-            this.state.difficulty
-        );
-        calcRes.showTheThing = true;
+    setDays(days){
+        this.setState({days});
+    }
 
-        this.setState(calcRes);
-    } 
+    // calculateDay = () => {
+    //     let calcRes = CalculationService.dayCalc(
+    //         this.state.hashRate,
+    //         this.state.unit,
+    //         this.state.BTC,
+    //         this.state.difficulty
+    //     );
 
-    reinvest = (days) => {
-        let test = CalculationService.reinvestCalc(
+    //     this.setState({
+    //         ...calcRes,
+    //         dollarPerDay: calcRes.USDPerDayWithFee,
+    //         bitcoinPerDay: calcRes.BTCPerDayWithFee,
+    //         showTheThing: true
+    //     });
+
+    //     this.reinvest();
+    // } 
+
+    reinvest = () => {
+        let reinvestmentData = CalculationService.reinvestCalc(
             this.state.hashRate,
             this.state.unit,
             this.state.BTC,
             this.state.difficulty,
-            Number(days)
+            this.state.days
         );
 
-        console.log(test);
+        this.setState({
+            reinvestmentData,
+            showTheThing: true
+        });
     }
 
     render() {
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
-                <Form BTC={this.state.BTC} unit={this.state.unit} setHash={this.setHashRate} setUnit={this.setUnit} calculate={this.calculateDay}/>
+                <Form 
+                    BTC={this.state.BTC} 
+                    unit={this.state.unit} 
+                    setHash={this.setHashRate} 
+                    setUnit={this.setUnit} 
+                    setDays={this.setDays} 
+                    reinvest={this.reinvest} />
                 { this.state.showTheThing && 
                 <View>
-                    <Profits BTC={this.state.BTC} dollarPerDay={this.state.USDPerDayWithFee} bitcoinPerDay={this.state.BTCPerDayWithFee} />
-                    <Projection reinvest={this.reinvest} />
-                    <Chart />
+                    {/* <Profits 
+                        BTC={this.state.BTC} 
+                        dollarPerDay={this.state.USDPerDayWithFee} 
+                        bitcoinPerDay={this.state.BTCPerDayWithFee} /> */}
+                    <ReinvestmentDescription reinvestmentData={this.state.reinvestmentData} />
                 </View>
                 }
             </ScrollView>

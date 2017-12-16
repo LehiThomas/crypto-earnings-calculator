@@ -20,12 +20,12 @@ export class CalculationService {
 		let BTCPerDayWithFee = BTCPerDay - feesInBTC; 
 
 		return {
-			BTCPerDay: BTCPerDay.toFixed(8),
-			USDPerDay: USDPerDay.toFixed(2),
-			USDPerDayWithFee: USDPerDayWithFee.toFixed(2),
-			BTCPerDayWithFee: BTCPerDayWithFee.toFixed(8),
-			USDTotalFee: (USDPerDay - USDPerDayWithFee).toFixed(2),
-			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee).toFixed(8),
+			BTCPerDay: BTCPerDay,
+			USDPerDay: USDPerDay,
+			USDPerDayWithFee: USDPerDayWithFee,
+			BTCPerDayWithFee: BTCPerDayWithFee,
+			USDTotalFee: (USDPerDay - USDPerDayWithFee),
+			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee),
 			hashRate: parseFloat(hashRate)
 		}
 	}
@@ -33,8 +33,8 @@ export class CalculationService {
 	static reinvestCalc(hashRate, unit, BTC, difficulty, days = 1, day = 0, calcDays = []) {
 		let calcDay = this.dayCalc(hashRate, unit, BTC, difficulty);
 		calcDays.push(calcDay);
-		hashRate += calcDay.USDPerDayWithFee / unit.USDPrice;
+		hashRate += (calcDay.USDPerDayWithFee / unit.USDPrice).toFixed(2) - 0;
 		day++;
-		return day === days ? calcDays : this.reinvestCalc(hashRate, unit, BTC, difficulty, days, day, calcDays);
+		return day == days ? calcDays : this.reinvestCalc(hashRate, unit, BTC, difficulty, days, day, calcDays);
 	}
 }

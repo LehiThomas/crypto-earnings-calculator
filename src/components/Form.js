@@ -16,6 +16,10 @@ class Form extends Component {
         this.props.setUnit(unit);
     }
 
+    setDays(days){
+        this.props.setDays(days);
+    }
+
     render(){
         return (
             <Card title='Enter your Hashrate'>
@@ -24,7 +28,6 @@ class Form extends Component {
                         <FormLabel>Hashrate</FormLabel>
                         <FormInput 
                             keyboardType="numeric" 
-                            onSubmitEditing={this.props.calculate}
                             onChangeText={(hash) => this.setHashRate(hash)}/>
                     </View>
                     <View style={styles.pickerStyles} >
@@ -35,12 +38,18 @@ class Form extends Component {
                             onValueChange = {(unit) => this.setUnit(unit)}>
                                 { HASHUNITS.map((unit) => <Picker.Item label={unit.label} value={unit} key={unit}/>) }
                         </Picker>
-                    </View>
+                    </View>                    
+                </View>
+                <View style={styles.daysForm} >
+                        <FormLabel>Reinvest for ? days: </FormLabel>
+                        <FormInput 
+                            keyboardType="numeric" 
+                            onChangeText={(days) => this.setDays(days)}/>
                 </View>
                 <Button 
                     title='CALCULATE' 
                     backgroundColor='#3D6DCC' 
-                    onPress={this.props.calculate} />
+                    onPress={this.props.reinvest} />
                 <Text style={styles.btcPrice}>1 BTC = ${ this.props.BTC }</Text>
             </Card>
         );
@@ -60,6 +69,10 @@ const styles = StyleSheet.create({
     pickerStyles:{
         flex: .6,
         marginBottom: 15
+    },
+    daysForm: {
+        flex: 1,
+        marginBottom: 20
     },
     btcPrice: {
         textAlign: 'center',
