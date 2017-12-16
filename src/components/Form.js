@@ -47,8 +47,8 @@ class Form extends Component {
                             onChangeText={(days) => this.setDays(days)}/>
                 </View>
                 <Button 
-                    title='CALCULATE' 
-                    backgroundColor='#3D6DCC' 
+                    title='CALCULATE'
+                    backgroundColor='#3D6DCC'
                     onPress={this.props.reinvest} />
                 <Text style={styles.btcPrice}>1 BTC = ${ this.props.BTC }</Text>
             </Card>

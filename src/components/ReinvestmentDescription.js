@@ -8,7 +8,7 @@ function ReinvestmentDescription(props) {
     let finalDay = projections.length - 1;
 
     return (
-        <Card>
+        <Card title="Reinvestment Projections">
             <Text>If you reinvested {projections.length} days your projections are: </Text>
             <Text>Daily Earnings: ${projections[finalDay].USDPerDayWithFee.toFixed(2)}</Text>
             <Text>Projected Total Hashrate: {projections[finalDay].hashRate}</Text>
