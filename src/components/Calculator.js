@@ -12,12 +12,12 @@ import Form from './Form';
 import ReinvestmentDescription from './ReinvestmentDescription';
 
 class Calculator extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             hashRate: 0,
             unit: HASHUNITS.find(unit => unit.key = "TH"),
-            BTC: 0,
+            BTC: this.props.BTC,
             dollarPerDay: 0,
             bitcoinPerDay: 0,
             showTheThing: false,
@@ -34,7 +34,6 @@ class Calculator extends Component {
 
     async loadExternalData(){
         this.state.difficulty = await BlockChainService.getDifficulty();
-        this.state.BTC = await BlockChainService.getBTCPrice();
     }
 
     setHashRate(hash){

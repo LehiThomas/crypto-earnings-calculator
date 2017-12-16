@@ -2,19 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { BlockChainService } from '../services/BlockChainService';
 
-const Header = () => {
-    let BTC;
-    BlockChainService.getBTCPrice().then(
-        function(res){
-            BTC = res;
-        }
-    )
+const Header = (props) => {
+    let BTC = props.BTC;
     console.log(BTC);
     
     return (
         <View style={headerContainer}>
             <Text style={header}>Bitcoin Reinvest Mining Calculator</Text>
-            <Text style={subHeader}>1 BTC = $</Text>
+            <Text style={subHeader}>1 BTC = ${BTC}</Text>
         </View>
     )
 }

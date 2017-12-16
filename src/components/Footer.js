@@ -3,7 +3,11 @@ import { View, Text, StyleSheet, Linking } from 'react-native';
 import { AdMobBanner, PublisherBanner, AdMobRewarded } from 'expo';
 
 const Footer = () => {
-    
+    const ADUNITID = `ca-app-pub-1425926517331745~6816357585`;
+    const BANNER_ID = `ca-app-pub-1425926517331745/4139536433`;
+    const INTERSTITIAL_ID = `ca-app-pub-1425926517331745/1141181467`;
+    const REWARDED_ID = `ca-app-pub-1425926517331745/3923257478`;
+
     return (
         <View style={styles.footerContainer} >
             <Text 
@@ -12,7 +16,7 @@ const Footer = () => {
                 https://hashflare.io/r/B855B218
             </Text>
             <AdMobBanner
-                bannerSize="fullBanner"
+                bannerSize="banner"
                 adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
                 testDeviceID="EMULATOR"
                 didFailToReceiveAdWithError={this.bannerError} />
