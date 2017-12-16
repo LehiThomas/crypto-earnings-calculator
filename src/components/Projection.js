@@ -15,10 +15,13 @@ class Projection extends Component{
     }
 
     setDays(days){
-        this.set
+        this.setState({
+            days: days,
+        });
+        console.log(this.state.days)
     }
 
-    reinvest(){
+    reinvest = () => {
         this.props.reinvest(this.state.days);
    }
 
@@ -28,12 +31,12 @@ class Projection extends Component{
                 <FormLabel>Reinvest for ? days: </FormLabel>
                 <FormInput 
                     keyboardType="numeric" 
-                    onSubmitEditing={this.props.reinvest}
+                    onSubmitEditing={this.reinvest}
                     onChangeText={(days) => this.setDays(days)}/>
                 <Button 
                     title='Submit' 
                     backgroundColor='#3D6DCC' 
-                    onPress={this.props.reinvest} />
+                    onPress={this.reinvest} />
             </Card>
         )
     }

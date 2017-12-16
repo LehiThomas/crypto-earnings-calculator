@@ -52,8 +52,6 @@ class Calculator extends Component {
         );
         calcRes.showTheThing = true;
 
-
-
         this.setState(calcRes);
     } 
 
@@ -63,7 +61,7 @@ class Calculator extends Component {
             this.state.unit,
             this.state.BTC,
             this.state.difficulty,
-            days
+            Number(days)
         );
 
         console.log(test);
@@ -76,8 +74,7 @@ class Calculator extends Component {
                 { this.state.showTheThing && 
                 <View>
                     <Profits BTC={this.state.BTC} dollarPerDay={this.state.USDPerDayWithFee} bitcoinPerDay={this.state.BTCPerDayWithFee} />
-                    <Projection 
-                        reinvest={this.reinvest} />
+                    <Projection reinvest={this.reinvest} />
                     <Chart />
                 </View>
                 }
