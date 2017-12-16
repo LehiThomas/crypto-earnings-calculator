@@ -63,11 +63,9 @@ const styles = StyleSheet.create({
     },
     formHashRate:{
         flex: 1,
-        marginBottom: 20
     },
     pickerStyles:{
         flex: .6,
-        marginBottom: 15
     },
     daysForm: {
         flex: 1,
