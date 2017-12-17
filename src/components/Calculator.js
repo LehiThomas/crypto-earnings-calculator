@@ -32,6 +32,12 @@ class Calculator extends Component {
         this.setDays = this.setDays.bind(this);
     }
 
+    componentDidMount(){
+        this.setState({
+            BTC: this.props.BTC
+        });
+    }
+
     async loadExternalData(){
         this.state.difficulty = await BlockChainService.getDifficulty();
     }
@@ -66,6 +72,7 @@ class Calculator extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Form 

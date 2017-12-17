@@ -4,7 +4,6 @@ import { BlockChainService } from '../services/BlockChainService';
 
 const Header = (props) => {
     let BTC = props.BTC;
-    console.log(BTC);
     
     return (
         <View style={headerContainer}>
