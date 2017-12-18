@@ -3,7 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { Asset, AppLoading } from 'expo';
 
 import { Calculator, Header, Footer } from './src/components';
-import { BlockChainService } from './src/services/BlockChainService'; 
+import { BlockChainService } from './src/services/BlockChainService';
+
 export default class App extends React.Component {
 	constructor(){
 		super();

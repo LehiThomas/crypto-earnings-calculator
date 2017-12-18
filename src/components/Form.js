@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Picker } from 'react-native';
+import { View, StyleSheet, Picker } from 'react-native';
 import { Card, FormLabel, FormInput, Button } from 'react-native-elements';
 import { HASHUNITS } from '../consts/HASHUNITS';
 

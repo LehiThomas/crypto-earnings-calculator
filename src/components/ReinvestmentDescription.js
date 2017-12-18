@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import { Card } from 'react-native-elements';
 
 function ReinvestmentDescription(props) {
-    console.log(props.reinvestmentData)
     let projections = props.reinvestmentData;
     let finalDay = projections.length - 1;
 

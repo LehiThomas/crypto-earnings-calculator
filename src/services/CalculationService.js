@@ -34,6 +34,10 @@ export class CalculationService {
 		let calcDay = this.dayCalc(hashRate, unit, BTC, difficulty);
 		calcDays.push(calcDay);
 		hashRate += (calcDay.USDPerDayWithFee / unit.USDPrice).toFixed(2) - 0;
+		if (day >= 365) {
+			const length = calcDays.length;
+			hashRate -= calcDays[length-365].hashRate;
+		}
 		day++;
 		return day == days ? calcDays : this.reinvestCalc(hashRate, unit, BTC, difficulty, days, day, calcDays);
 	}

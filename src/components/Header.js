@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { BlockChainService } from '../services/BlockChainService';
 
 const Header = (props) => {
     let BTC = props.BTC;

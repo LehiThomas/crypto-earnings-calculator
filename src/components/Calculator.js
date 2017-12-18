@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, Picker } from 'react-native';
-import { Header, Card, FormLabel, FormInput, Button } from 'react-native-elements';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Card } from 'react-native-elements';
 import { BlockChainService } from '../services/BlockChainService';
 import { CalculationService } from '../services/CalculationService';
 import { HASHUNITS } from '../consts/HASHUNITS';
 
-import Profits from './Profits';
-import Projection from './Projection';
-import Chart from './Chart';
 import Form from './Form';
 import ReinvestmentDescription from './ReinvestmentDescription';
 
@@ -72,7 +69,6 @@ class Calculator extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Form 
@@ -84,10 +80,6 @@ class Calculator extends Component {
                     reinvest={this.reinvest} />
                 { this.state.showTheThing && 
                 <View>
-                    {/* <Profits 
-                        BTC={this.state.BTC} 
-                        dollarPerDay={this.state.USDPerDayWithFee} 
-                        bitcoinPerDay={this.state.BTCPerDayWithFee} /> */}
                     <ReinvestmentDescription reinvestmentData={this.state.reinvestmentData} />
                 </View>
                 }
