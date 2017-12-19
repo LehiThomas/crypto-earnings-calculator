@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingBottom: 10,
         alignItems: "center",
-        backgroundColor: '#063040',
+        backgroundColor: '#063544',
     },
     subHeaderContainer:{
         display: "flex",

@@ -43,7 +43,7 @@ class Form extends Component {
                         </Picker>
                     </View>                    
                 </View>
-                <View style={styles.daysForm} >
+                <View style={styles.daysForm}>
                         <FormLabel># of Days to Reinvest: </FormLabel>
                         <FormInput 
                             keyboardType="numeric" 
@@ -52,7 +52,7 @@ class Form extends Component {
                 <View style={styles.buttonView} >
                     <Button 
                         title='Calculate'
-                        backgroundColor='#063040'
+                        backgroundColor='#063544'
                         buttonStyle={styles.button}
                         onPress={this.props.reinvest}
                         fontSize={18}  />
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         flex: .6,
     },
     daysForm: {
-        flex: 1,
+        width: '63%',
         marginBottom: 20
     },
     picker:{
