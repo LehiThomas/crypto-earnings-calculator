@@ -9,8 +9,8 @@ const Footer = () => {
         <View style={styles.footerContainer} >
             <Text 
                 style={styles.footer} 
-                onPress={() => Linking.openURL('https://hashflare.io/r/B855B218')}>
-                https://hashflare.io/r/B855B218
+                onPress={() => Linking.openURL(config.reflink)}>
+                {config.reflink}
             </Text>
             <AdMobBanner
                 bannerSize="banner"
