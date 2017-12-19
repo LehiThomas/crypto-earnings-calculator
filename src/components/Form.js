@@ -29,7 +29,7 @@ class Form extends Component {
                     <View style={styles.formHashRate}>
                         <FormLabel>Hashrate</FormLabel>
                         <FormInput
-                            underlineColorAndroid="#e2c32d"
+                            underlineColorAndroid="#ffe570"
                             keyboardType="numeric" 
                             onChangeText={(hash) => this.setHashRate(hash)}/>
                     </View>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     button:{
         width: 200,
         borderRadius: 4,
-        borderColor: '#e2c32d',
+        borderColor: '#ffe570',
         borderWidth: 1.2
     },
     buttonView:{
@@ -91,16 +91,19 @@ const styles = StyleSheet.create({
     },
     pickerStyles:{
         flex: .6,
+        padding: 0,
+        borderRadius: 5,
+        borderColor: '#ffe570',
+        borderWidth: 1.3,
+        marginBottom: 6
     },
     daysForm: {
         width: '63%',
         marginBottom: 20
     },
     picker:{
-        padding:0,
-        borderRadius: 4,
-        borderColor: 'black',
-        borderWidth: 1
+        padding: 0,
+        margin: 0    
     }
 })
 
