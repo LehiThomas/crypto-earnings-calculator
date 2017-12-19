@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 const Header = (props) => {
     let BTC = props.BTC;
@@ -7,7 +7,13 @@ const Header = (props) => {
     return (
         <View style={headerContainer}>
             <Text style={header}>Bitcoin Reinvest Mining Calculator</Text>
-            <Text style={subHeader}>1 BTC = ${BTC}</Text>
+            <View style={subHeaderContainer}>
+                <Image
+                    style={styles.coinImg}
+                    source={require('../../assets/bitcoin.png')}
+                    />
+                <Text style={subHeader}>1 BTC = ${BTC}</Text>
+            </View>            
         </View>
     )
 }
@@ -18,20 +24,32 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingBottom: 10,
         alignItems: "center",
-        backgroundColor: '#3D6DCC',
+        backgroundColor: '#063040',
+    },
+    subHeaderContainer:{
+        display: "flex",
+        flexDirection: 'row',
+        marginBottom: 10
+    },
+    coinImg:{
+        width:16,
+        height:16,
+        marginRight: 3,
+        marginTop: 4
     },
     header: {
         fontWeight: "bold",
         fontSize: 20,
-        color: 'white'
+        color: 'white',
+        marginBottom: 10
     },
     subHeader: {
         fontWeight: "bold",
-        fontSize: 15,
+        fontSize: 17,
         color: 'white'
     }
 })
 
-const { headerContainer, header, subHeader } = styles;
+const { headerContainer, header, subHeader, subHeaderContainer } = styles;
 
 export default Header;

@@ -22,11 +22,14 @@ class Form extends Component {
 
     render(){
         return (
-            <Card title='Enter your Hashrate'>
+            <Card title='Enter your Hashrate' 
+                containerStyle={styles.cardContainer} 
+                titleStyle={styles.titleStyle} >
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
                         <FormLabel>Hashrate</FormLabel>
-                        <FormInput 
+                        <FormInput
+                            underlineColorAndroid="#e2c32d"
                             keyboardType="numeric" 
                             onChangeText={(hash) => this.setHashRate(hash)}/>
                     </View>
@@ -34,7 +37,7 @@ class Form extends Component {
                         <Picker
                             selectedValue={this.props.unit}
                             mode='dropdown'
-                            style={{padding:0}} 
+                            style={styles.picker} 
                             onValueChange = {(unit) => this.setUnit(unit)}>
                                 { HASHUNITS.map((unit) => <Picker.Item label={unit.label} value={unit} key={unit}/>) }
                         </Picker>
@@ -46,23 +49,45 @@ class Form extends Component {
                             keyboardType="numeric" 
                             onChangeText={(days) => this.setDays(days)}/>
                 </View>
-                <Button 
-                    title='CALCULATE'
-                    backgroundColor='#3D6DCC'
-                    onPress={this.props.reinvest} />
+                <View style={styles.buttonView} >
+                    <Button 
+                        title='Calculate'
+                        backgroundColor='#063040'
+                        buttonStyle={styles.button}
+                        onPress={this.props.reinvest}
+                        fontSize={18}  />
+                </View>
             </Card>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    cardContainer: {
+        margin: 5,
+        marginBottom: 0
+    },
+    titleStyle:{
+        fontSize: 15,
+    },
     formContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
     },
     formHashRate:{
         flex: 1,
+    },
+    button:{
+        width: 200,
+        borderRadius: 4,
+        borderColor: '#e2c32d',
+        borderWidth: 1.2
+    },
+    buttonView:{
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     pickerStyles:{
         flex: .6,
@@ -70,6 +95,12 @@ const styles = StyleSheet.create({
     daysForm: {
         flex: 1,
         marginBottom: 20
+    },
+    picker:{
+        padding:0,
+        borderRadius: 4,
+        borderColor: 'black',
+        borderWidth: 1
     }
 })
 
