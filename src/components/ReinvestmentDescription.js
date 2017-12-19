@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
+import colors from '../styles/colors'
 
 const styles = StyleSheet.create({
     cardContainer: {
@@ -20,10 +21,10 @@ const styles = StyleSheet.create({
     projTextRight: {
         fontWeight: "bold",
         fontSize: 13,
-        color: '#e2c32d',
+        color: colors.gold,
     },
     topBorder: {
-        backgroundColor: '#e1e8ee',
+        backgroundColor: colors.grey5,
         height: 1,
         borderTopLeftRadius: 2,
         borderTopRightRadius: 2,

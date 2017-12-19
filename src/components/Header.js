@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { LinearGradient } from 'expo';
+import colors from '../styles/colors'
 
 const Header = (props) => {
     let BTC = props.BTC;
@@ -8,7 +9,7 @@ const Header = (props) => {
     return (
         <View style={headerContainer}>
         <LinearGradient
-          colors={['#052332', '#063544']}
+          colors={['#052332', colors.backgrounds]}
           style={styles.gradient}>
             <Text style={header}>Bitcoin Reinvest Mining Calculator</Text>
             <View style={subHeaderContainer}>
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         display: "flex",       
         alignItems: "center",
-        backgroundColor: '#063544',
+        backgroundColor: colors.backgrounds,
     },
     subHeaderContainer:{
         display: "flex",

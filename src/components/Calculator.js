@@ -19,7 +19,7 @@ class Calculator extends Component {
             bitcoinPerDay: 0,
             showTheThing: false,
             reinvestmentData: [],
-            days: 0
+            days: 1
         };
 
         this.loadExternalData();

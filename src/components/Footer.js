@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Linking } from 'react-native';
 import { AdMobBanner, PublisherBanner, AdMobRewarded } from 'expo';
 import { config } from '../config'
+import colors from '../styles/colors'
 
 const ADUNITID = config.admob;
 const BANNER_ID  = config.banner_id;
@@ -32,10 +33,9 @@ const styles = StyleSheet.create({
     },
     footer: {
         fontWeight: "bold",
-        fontSize: 20,
+        fontSize: 17,
         textAlign: 'center',
-        color: 'blue',
-        marginBottom: 10
+        color: colors.gold,
     },
 
 })

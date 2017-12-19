@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Picker } from 'react-native';
 import { Card, FormLabel, FormInput, Button } from 'react-native-elements';
 import { HASHUNITS } from '../consts/HASHUNITS';
+import colors from '../styles/colors'
 
 class Form extends Component {
     constructor(props){
@@ -27,9 +28,9 @@ class Form extends Component {
                 titleStyle={styles.titleStyle} >
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
-                        <FormLabel>Hashrate</FormLabel>
+                        <FormLabel labelStyle={styles.formLabel}>Hashrate</FormLabel>
                         <FormInput
-                            underlineColorAndroid="#ffe570"
+                            underlineColorAndroid={colors.outlines}
                             keyboardType="numeric" 
                             onChangeText={(hash) => this.setHashRate(hash)}/>
                     </View>
@@ -44,15 +45,15 @@ class Form extends Component {
                     </View>                    
                 </View>
                 <View style={styles.daysForm}>
-                        <FormLabel># of Days to Reinvest: </FormLabel>
-                        <FormInput 
+                        <FormLabel labelStyle={styles.formLabel}># of Days to Reinvest: </FormLabel>
+                        <FormInput
                             keyboardType="numeric" 
                             onChangeText={(days) => this.setDays(days)}/>
                 </View>
                 <View style={styles.buttonView} >
                     <Button 
                         title='Calculate'
-                        backgroundColor='#063544'
+                        backgroundColor={colors.backgrounds}
                         buttonStyle={styles.button}
                         onPress={this.props.reinvest}
                         fontSize={18}  />
@@ -75,13 +76,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'flex-end',
     },
+    formLabel:{
+        height: 30,
+        marginTop: 0,
+    },
     formHashRate:{
         flex: 1,
     },
     button:{
         width: 200,
         borderRadius: 4,
-        borderColor: '#ffe570',
+        borderColor: colors.outlines,
         borderWidth: 1.2
     },
     buttonView:{
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
         flex: .6,
         padding: 0,
         borderRadius: 5,
-        borderColor: '#ffe570',
+        borderColor: colors.outlines,
         borderWidth: 1.3,
         marginBottom: 6
     },
