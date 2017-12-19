@@ -1,12 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Linking } from 'react-native';
 import { AdMobBanner, PublisherBanner, AdMobRewarded } from 'expo';
+import { config } from '../config'
 
 const Footer = () => {
-    const ADUNITID = `ca-app-pub-1425926517331745~6816357585`;
-    const BANNER_ID = `ca-app-pub-1425926517331745/4139536433`;
-    const INTERSTITIAL_ID = `ca-app-pub-1425926517331745/1141181467`;
-    const REWARDED_ID = `ca-app-pub-1425926517331745/3923257478`;
 
     return (
         <View style={styles.footerContainer} >
@@ -17,7 +14,7 @@ const Footer = () => {
             </Text>
             <AdMobBanner
                 bannerSize="banner"
-                adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+                adUnitID="{config.adunit}"
                 testDeviceID="EMULATOR"
                 didFailToReceiveAdWithError={this.bannerError} />
         </View>
