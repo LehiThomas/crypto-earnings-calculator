@@ -30,6 +30,7 @@ class Form extends Component {
                     <View style={styles.formHashRate}>
                         <FormLabel labelStyle={styles.formLabel}>Hashrate</FormLabel>
                         <FormInput
+                            containerStyle={styles.formInput}
                             underlineColorAndroid={colors.outlines}
                             keyboardType="numeric" 
                             onChangeText={(hash) => this.setHashRate(hash)}/>
@@ -47,6 +48,8 @@ class Form extends Component {
                 <View style={styles.daysForm}>
                         <FormLabel labelStyle={styles.formLabel}># of Days to Reinvest: </FormLabel>
                         <FormInput
+                            containerStyle={styles.formInput}
+                            inputStyle={{}}
                             keyboardType="numeric" 
                             onChangeText={(days) => this.setDays(days)}/>
                 </View>
@@ -77,8 +80,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
     },
     formLabel:{
-        height: 30,
-        marginTop: 0,
+        height: 16,
+        marginTop: 0
+    },
+    formInput:{
+         height:40,
+         marginBottom:10
     },
     formHashRate:{
         flex: 1,
@@ -92,7 +99,8 @@ const styles = StyleSheet.create({
     buttonView:{
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop:0
     },
     pickerStyles:{
         flex: .6,
@@ -100,11 +108,11 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderColor: colors.outlines,
         borderWidth: 1.3,
-        marginBottom: 6
+        marginBottom: 10
     },
     daysForm: {
         width: '63%',
-        marginBottom: 20
+        marginBottom: 5
     },
     picker:{
         padding: 0,
