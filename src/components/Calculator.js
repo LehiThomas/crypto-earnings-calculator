@@ -49,8 +49,12 @@ class Calculator extends Component {
         this.setState({originalCost});
     }
 
-    figureItOut = () => {    
-        console.log(this.state)    
+    figureItOut = () => {
+        console.log(this.state.currentPrice,
+            this.state.originalCost,
+            this.state.coin,
+            this.state.coinAmount)
+
         let earningsData = CalculationService.calculateEarnings(
             this.state.currentPrice,
             this.state.originalCost,

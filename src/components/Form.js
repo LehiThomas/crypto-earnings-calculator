@@ -8,9 +8,15 @@ class Form extends Component {
         super(props);
 
         this.state= {
-            coin: this.props.coins[0],
-            currentPrice :this.props.coins[0].price_usd
+            coins: this.props.coins,
+            coin: this.props.coins[1],
+            currentPrice :this.props.coins[1].price_usd
         }
+
+        this.setCoinAmount = this.setCoinAmount.bind(this);
+        this.setCoin = this.setCoin.bind(this);
+        this.setCurrentPrice = this.setCurrentPrice.bind(this);
+        this.setOriginalCost = this.setOriginalCost.bind(this);
     }
 
     setCoinAmount(coinAmount){
@@ -18,7 +24,10 @@ class Form extends Component {
     }
 
     setCoin(coin){
-        this.setState({ coin })
+        this.setState({
+            currentPrice: coin.price_usd
+        })
+        this.props.setCoin(coin);
     }
 
     setOriginalCost(cost){
@@ -27,11 +36,10 @@ class Form extends Component {
 
     setCurrentPrice(currentPrice){
         this.setState({ currentPrice })
+        this.props.setCurrentPrice(this.state.currentPrice);
     }
 
     onSubmit = () => {
-        this.props.setCurrentPrice(this.state.currentPrice);
-        this.props.setCoin(this.state.coin);
         this.props.figureItOut()
     }
 
@@ -40,6 +48,15 @@ class Form extends Component {
             <Card title='Enter your Hashrate'
                 containerStyle={styles.cardContainer}
                 titleStyle={styles.titleStyle} >
+                <View style={styles.pickerStyles} >
+                    <Picker
+                        selectedValue={this.props.coins[1].symbol}
+                        mode='dropdown'
+                        style={styles.picker}
+                        onValueChange = {(coin) => this.setCoin(coin)} >
+                        { this.props.coins.map((coin) => <Picker.Item label={coin.symbol} value={coin} key={coin.id}/>) }
+                    </Picker>
+                </View>
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
                         <FormLabel labelStyle={styles.formLabel}>Coin Amount Owned</FormLabel>
@@ -48,14 +65,6 @@ class Form extends Component {
                             underlineColorAndroid={colors.outlines}
                             keyboardType="numeric"
                             onChangeText={(coins) => this.setCoinAmount(coins)}/>
-                    </View>
-                    <View style={styles.pickerStyles} >
-                        <Picker
-                            mode='dropdown'
-                            style={styles.picker}
-                            onValueChange = {(coin) => this.setCoin(coin)}>
-                            { this.props.coins.map((coin) => <Picker.Item label={coin.symbol} value={coin} key={coin.id}/>) }
-                        </Picker>
                     </View>
                 </View>
                 <View style={styles.daysForm}>
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
         marginTop:0
     },
     pickerStyles:{
-        flex: .6,
+        flex: .5,
         padding: 0,
         borderRadius: 5,
         borderColor: colors.outlines,
