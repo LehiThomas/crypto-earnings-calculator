@@ -12,13 +12,6 @@ const Header = (props) => {
           colors={['#052332', colors.backgrounds]}
           style={styles.gradient}>
             <Text style={header}>Cryptocurrency Earnings Calculator</Text>
-            <View style={subHeaderContainer}>
-                <Image
-                    style={styles.coinImg}
-                    source={require('../../assets/bitcoin.png')}
-                    />
-                <Text style={subHeader}>1 BTC = ${BTC}</Text>
-            </View>
             </LinearGradient>
         </View>
     )

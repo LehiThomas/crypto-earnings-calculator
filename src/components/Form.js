@@ -1,48 +1,38 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Picker } from 'react-native';
 import { Card, FormLabel, FormInput, Button } from 'react-native-elements';
-import { COINS } from '../consts/COINS';
 import colors from '../styles/colors'
 
 class Form extends Component {
     constructor(props){
         super(props);
 
-        console.log(this.props.coins)
         this.state= {
-
+            coin: this.props.coins[0],
+            currentPrice :this.props.coins[0].price_usd
         }
     }
 
-    setCoinAmount(coins){
-        //this.props.setDays(days);
-        console.log("Coin Amount", coins)
+    setCoinAmount(coinAmount){
+        this.props.setCoinAmount(coinAmount);
     }
 
     setCoin(coin){
-        //this.props.setCoin(coin);
-        console.log("Coin", coin)
         this.setState({ coin })
     }
 
     setOriginalCost(cost){
-        //this.props.setDays(days);
-        console.log("Original Cost", cost)
+        this.props.setOriginalCost(cost);
     }
 
-    setCurrentPrice(price){
-        //this.props.setDays(days);
-        console.log("Current Price", price)
+    setCurrentPrice(currentPrice){
+        this.setState({ currentPrice })
     }
 
-    getCurrentPrice(coin){
-        axios.get('https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD')
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => {
-            console.log(err.data)
-        });
+    onSubmit = () => {
+        this.props.setCurrentPrice(this.state.currentPrice);
+        this.props.setCoin(this.state.coin);
+        this.props.figureItOut()
     }
 
     render(){
@@ -61,11 +51,10 @@ class Form extends Component {
                     </View>
                     <View style={styles.pickerStyles} >
                         <Picker
-                            selectedValue={COINS[0].symbol}
                             mode='dropdown'
                             style={styles.picker}
                             onValueChange = {(coin) => this.setCoin(coin)}>
-                                { COINS.map((coin) => <Picker.Item label={coin.symbol} value={coin} key={coin.id}/>) }
+                            { this.props.coins.map((coin) => <Picker.Item label={coin.symbol} value={coin} key={coin.id}/>) }
                         </Picker>
                     </View>
                 </View>
@@ -80,18 +69,18 @@ class Form extends Component {
                 <View style={styles.daysForm}>
                         <FormLabel labelStyle={styles.formLabel}>Current Price: </FormLabel>
                         <FormInput
-                            // value={this.state.coin.price_usd}
+                            value={this.state.currentPrice}
                             containerStyle={styles.formInput}
                             inputStyle={{}}
                             keyboardType="numeric"
-                            onChangeText={(price) => this.setCurrentPrice(price)}/>
+                            onChangeText={(currentPrice) => this.setCurrentPrice(currentPrice)}/>
                 </View>
                 <View style={styles.buttonView} >
                     <Button
                         title='Calculate'
                         backgroundColor={colors.backgrounds}
                         buttonStyle={styles.button}
-                        onPress={this.props.figureItOut}
+                        onPress={this.onSubmit}
                         fontSize={18}  />
                 </View>
             </Card>

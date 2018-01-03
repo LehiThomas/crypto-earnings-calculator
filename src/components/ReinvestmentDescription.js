@@ -35,23 +35,23 @@ const styles = StyleSheet.create({
 })
 
 function ReinvestmentDescription(props) {
-    let projections = props.reinvestmentData;
-    let finalDay = projections.length - 1;
+    let earnings = props.earningsData.ROI;
+    let difference = props.earningsData.difference
 
     return (
-        <Card title="Reinvestment Projections" 
+        <Card title="Total Earnings" 
             containerStyle={styles.cardContainer} 
             titleStyle={styles.titleStyle}>
-            <Text style={{marginBottom:10}}>If you reinvest {projections.length} days your projections are: </Text>
+            <Text style={{marginBottom:10}}>Your Return On Investment is: </Text>
             <View style={styles.topBorder}></View>
             <View style={styles.projView}>
-                <Text style={styles.projTextLeft}>Daily Earnings</Text>
-                <Text style={styles.projTextRight}>${projections[finalDay].USDPerDayWithFee.toFixed(2)}</Text>
+                <Text style={styles.projTextLeft}>ROI</Text>
+                <Text style={styles.projTextRight}>${earnings.toFixed(2)}</Text>
             </View>
             <View style={styles.topBorder}></View>
             <View style={styles.projView}>
-                <Text style={styles.projTextLeft}>Projected Total Hashrate</Text>
-                <Text style={styles.projTextRight}>{(projections[finalDay].hashRate).toFixed(2)}</Text>
+                <Text style={styles.projTextLeft}>Individual Coin Increase</Text>
+                <Text style={styles.projTextRight}>{difference.toFixed(2)}</Text>
             </View>
         </Card>)
 }

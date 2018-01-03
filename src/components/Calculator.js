@@ -14,7 +14,7 @@ class Calculator extends Component {
         this.state = {
             coins: this.props.coins,
             showTheThing: false,
-            reinvestmentData: [],
+            earningsData: {},
             currentPrice: 0,
             coinAmount: 0,
             originalCost: 0,
@@ -49,12 +49,23 @@ class Calculator extends Component {
         this.setState({originalCost});
     }
 
-    figureItOut = () => {
-        console.log("Figuring it out...")
+    figureItOut = () => {    
+        console.log(this.state)    
+        let earningsData = CalculationService.calculateEarnings(
+            this.state.currentPrice,
+            this.state.originalCost,
+            this.state.coin,
+            this.state.coinAmount
+        );
+
+        console.log("data", earningsData)
+        this.setState({
+            earningsData,
+            showTheThing: true
+        });
     }
 
     render() {
-        console.log(this.state.coins)
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
                 <Form
@@ -66,7 +77,7 @@ class Calculator extends Component {
                     figureItOut={this.figureItOut} />
                 { this.state.showTheThing &&
                 <View>
-                    <ReinvestmentDescription reinvestmentData={this.state.reinvestmentData} />
+                    <ReinvestmentDescription earningsData={this.state.earningsData} />
                 </View>
                 }
             </ScrollView>

@@ -6,40 +6,10 @@ export class CalculationService {
 		this.reinvestCalc.bind(this);
 	}
 	
-	static dayCalc(hashRate, unit, BTC, difficulty) {
-		const blockReward = 12.5;
-		const secondsPerDay = 86400;
-
-		let hashSpeed = unit.speed * hashRate;
-		let fees = hashRate * unit.fee;
-		let feesInBTC = fees/BTC;
-
-		let BTCPerDay = (blockReward * hashSpeed * secondsPerDay) / (difficulty * Math.pow(2,32));
-		let USDPerDay = BTC * BTCPerDay;
-		let USDPerDayWithFee = BTC * BTCPerDay - fees;
-		let BTCPerDayWithFee = BTCPerDay - feesInBTC; 
-
-		return {
-			BTCPerDay: BTCPerDay,
-			USDPerDay: USDPerDay,
-			USDPerDayWithFee: USDPerDayWithFee,
-			BTCPerDayWithFee: BTCPerDayWithFee,
-			USDTotalFee: (USDPerDay - USDPerDayWithFee),
-			BTCTotalFee: (BTCPerDay - BTCPerDayWithFee),
-			hashRate: parseFloat(hashRate)
-		}
-	}
-
-	static reinvestCalc(hashRate, unit, BTC, difficulty, days = 1, day = 0, calcDays = []) {
-		let calcDay = this.dayCalc(hashRate, unit, BTC, difficulty);
-		calcDays.push(calcDay);
-		hashRate += (calcDay.USDPerDayWithFee / unit.USDPrice).toFixed(2) - 0;
-		if (day >= 365) {
-			const length = calcDays.length;
-			hashRate -= calcDays[length-365].hashRate;
-		}
-		day++;
-		return day == days ? calcDays : this.reinvestCalc(hashRate, unit, BTC, difficulty, days, day, calcDays);
+	static calculateEarnings(currentPrice, originalCost, coin, coinAmount){
+		const difference = currentPrice * originalCost
+		const ROI = difference * coinAmount
+		return { ROI: ROI, difference: difference }
 	}
 }
 
