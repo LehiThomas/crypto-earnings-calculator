@@ -10,7 +10,6 @@ export default class App extends React.Component {
 		super();
 		this.state = {
 			isReady: false,
-			BTC: 0
 		}
 
 		this.loadExternalData = this.loadExternalData.bind(this);
@@ -21,13 +20,12 @@ export default class App extends React.Component {
 	}
 
 	async loadExternalData(){
-		let BTC = await BlockChainService.getBTCPrice();
-		
-		this.setState({BTC});
+		let coins = await BlockChainService.getCoinTop10();
+		this.setState({coins});
 
-		return Promise.all(BTC);
+		return Promise.all(coins);
 	}
-	
+
 	render() {
 		if (!this.state.isReady) {
 			return (
@@ -38,11 +36,11 @@ export default class App extends React.Component {
 			  />
 			);
 		  }
-		
+
 		return (
 		<View style={styles.appContainer}>
 			<Header BTC={this.state.BTC} />
-			<Calculator BTC={this.state.BTC} />
+			<Calculator coins={this.state.coins} />
 			<Footer />
 		</View>
 		);

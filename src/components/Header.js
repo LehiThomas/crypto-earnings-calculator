@@ -5,21 +5,21 @@ import colors from '../styles/colors'
 
 const Header = (props) => {
     let BTC = props.BTC;
-    
+
     return (
         <View style={headerContainer}>
         <LinearGradient
           colors={['#052332', colors.backgrounds]}
           style={styles.gradient}>
-            <Text style={header}>Bitcoin Reinvest Mining Calculator</Text>
+            <Text style={header}>Cryptocurrency Earnings Calculator</Text>
             <View style={subHeaderContainer}>
                 <Image
                     style={styles.coinImg}
                     source={require('../../assets/bitcoin.png')}
                     />
                 <Text style={subHeader}>1 BTC = ${BTC}</Text>
-            </View>   
-            </LinearGradient>         
+            </View>
+            </LinearGradient>
         </View>
     )
 }
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     headerContainer: {
-        display: "flex",       
+        display: "flex",
         alignItems: "center",
         backgroundColor: colors.backgrounds,
     },

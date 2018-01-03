@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
 import { BlockChainService } from '../services/BlockChainService';
 import { CalculationService } from '../services/CalculationService';
-import { HASHUNITS } from '../consts/HASHUNITS';
+import { COINS } from '../consts/COINS';
 
 import Form from './Form';
 import ReinvestmentDescription from './ReinvestmentDescription';
@@ -12,73 +12,59 @@ class Calculator extends Component {
     constructor(props){
         super(props);
         this.state = {
-            hashRate: 0,
-            unit: HASHUNITS.find(unit => unit.key = "TH"),
-            BTC: this.props.BTC,
-            dollarPerDay: 0,
-            bitcoinPerDay: 0,
+            coins: this.props.coins,
             showTheThing: false,
             reinvestmentData: [],
-            days: 1
+            currentPrice: 0,
+            coinAmount: 0,
+            originalCost: 0,
+            coin: {}
         };
 
-        this.loadExternalData();
-
-        this.setHashRate = this.setHashRate.bind(this);
-        this.setUnit = this.setUnit.bind(this);
-        this.setDays = this.setDays.bind(this);
+        this.setCoinAmount = this.setCoinAmount.bind(this);
+        this.setCoin = this.setCoin.bind(this);
+        this.setCurrentPrice = this.setCurrentPrice.bind(this);
+        this.setOriginalCost = this.setOriginalCost.bind(this);
     }
 
     componentDidMount(){
         this.setState({
-            BTC: this.props.BTC
+            coins: this.props.coins
         });
     }
 
-    async loadExternalData(){
-        this.state.difficulty = await BlockChainService.getDifficulty();
+    setCoinAmount(coinAmount){
+        this.setState({ coinAmount });
     }
 
-    setHashRate(hash){
-        this.setState({
-            hashRate: hash - 0
-        });
+    setCoin(coin){
+        this.setState({coin});
     }
 
-    setUnit(unit){
-        this.setState({unit});
+    setCurrentPrice(currentPrice){
+        this.setState({currentPrice});
     }
 
-    setDays(days){
-        this.setState({days});
+    setOriginalCost(originalCost){
+        this.setState({originalCost});
     }
 
-    reinvest = () => {
-        let reinvestmentData = CalculationService.reinvestCalc(
-            this.state.hashRate,
-            this.state.unit,
-            this.state.BTC,
-            this.state.difficulty,
-            this.state.days
-        );
-
-        this.setState({
-            reinvestmentData,
-            showTheThing: true
-        });
+    figureItOut = () => {
+        console.log("Figuring it out...")
     }
 
     render() {
+        console.log(this.state.coins)
         return (
             <ScrollView contentContainerStyle={styles.contentContainer}>
-                <Form 
-                    BTC={this.state.BTC} 
-                    unit={this.state.unit} 
-                    setHash={this.setHashRate} 
-                    setUnit={this.setUnit} 
-                    setDays={this.setDays} 
-                    reinvest={this.reinvest} />
-                { this.state.showTheThing && 
+                <Form
+                    coins={this.state.coins}
+                    setOriginalCost={this.setOriginalCost}
+                    setCurrentPrice={this.setCurrentPrice}
+                    setCoinAmount={this.setCoinAmount}
+                    setCoin={this.setCoin}
+                    figureItOut={this.figureItOut} />
+                { this.state.showTheThing &&
                 <View>
                     <ReinvestmentDescription reinvestmentData={this.state.reinvestmentData} />
                 </View>

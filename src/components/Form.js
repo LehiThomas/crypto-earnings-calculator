@@ -1,64 +1,97 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Picker } from 'react-native';
 import { Card, FormLabel, FormInput, Button } from 'react-native-elements';
-import { HASHUNITS } from '../consts/HASHUNITS';
+import { COINS } from '../consts/COINS';
 import colors from '../styles/colors'
 
 class Form extends Component {
     constructor(props){
         super(props);
+
+        console.log(this.props.coins)
+        this.state= {
+
+        }
     }
 
-    setHashRate(hash){
-        this.props.setHash(hash);
+    setCoinAmount(coins){
+        //this.props.setDays(days);
+        console.log("Coin Amount", coins)
     }
 
-    setUnit(unit){
-        this.props.setUnit(unit);
+    setCoin(coin){
+        //this.props.setCoin(coin);
+        console.log("Coin", coin)
+        this.setState({ coin })
     }
 
-    setDays(days){
-        this.props.setDays(days);
+    setOriginalCost(cost){
+        //this.props.setDays(days);
+        console.log("Original Cost", cost)
+    }
+
+    setCurrentPrice(price){
+        //this.props.setDays(days);
+        console.log("Current Price", price)
+    }
+
+    getCurrentPrice(coin){
+        axios.get('https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD')
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err.data)
+        });
     }
 
     render(){
         return (
-            <Card title='Enter your Hashrate' 
-                containerStyle={styles.cardContainer} 
+            <Card title='Enter your Hashrate'
+                containerStyle={styles.cardContainer}
                 titleStyle={styles.titleStyle} >
                 <View style={styles.formContainer}>
                     <View style={styles.formHashRate}>
-                        <FormLabel labelStyle={styles.formLabel}>Hashrate</FormLabel>
+                        <FormLabel labelStyle={styles.formLabel}>Coin Amount Owned</FormLabel>
                         <FormInput
                             containerStyle={styles.formInput}
                             underlineColorAndroid={colors.outlines}
-                            keyboardType="numeric" 
-                            onChangeText={(hash) => this.setHashRate(hash)}/>
+                            keyboardType="numeric"
+                            onChangeText={(coins) => this.setCoinAmount(coins)}/>
                     </View>
                     <View style={styles.pickerStyles} >
                         <Picker
-                            selectedValue={this.props.unit}
+                            selectedValue={COINS[0].symbol}
                             mode='dropdown'
-                            style={styles.picker} 
-                            onValueChange = {(unit) => this.setUnit(unit)}>
-                                { HASHUNITS.map((unit) => <Picker.Item label={unit.label} value={unit} key={unit}/>) }
+                            style={styles.picker}
+                            onValueChange = {(coin) => this.setCoin(coin)}>
+                                { COINS.map((coin) => <Picker.Item label={coin.symbol} value={coin} key={coin.id}/>) }
                         </Picker>
-                    </View>                    
+                    </View>
                 </View>
                 <View style={styles.daysForm}>
-                        <FormLabel labelStyle={styles.formLabel}># of Days to Reinvest: </FormLabel>
+                        <FormLabel labelStyle={styles.formLabel}>Price at Purchase: </FormLabel>
                         <FormInput
                             containerStyle={styles.formInput}
                             inputStyle={{}}
-                            keyboardType="numeric" 
-                            onChangeText={(days) => this.setDays(days)}/>
+                            keyboardType="numeric"
+                            onChangeText={(cost) => this.setOriginalCost(cost)}/>
+                </View>
+                <View style={styles.daysForm}>
+                        <FormLabel labelStyle={styles.formLabel}>Current Price: </FormLabel>
+                        <FormInput
+                            // value={this.state.coin.price_usd}
+                            containerStyle={styles.formInput}
+                            inputStyle={{}}
+                            keyboardType="numeric"
+                            onChangeText={(price) => this.setCurrentPrice(price)}/>
                 </View>
                 <View style={styles.buttonView} >
-                    <Button 
+                    <Button
                         title='Calculate'
                         backgroundColor={colors.backgrounds}
                         buttonStyle={styles.button}
-                        onPress={this.props.reinvest}
+                        onPress={this.props.figureItOut}
                         fontSize={18}  />
                 </View>
             </Card>
@@ -116,7 +149,7 @@ const styles = StyleSheet.create({
     },
     picker:{
         padding: 0,
-        margin: 0    
+        margin: 0
     }
 })
 

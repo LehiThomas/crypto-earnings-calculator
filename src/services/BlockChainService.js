@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export class BlockChainService {
-	
+
 	constructor(){}
 
 	static async getDifficulty(){
@@ -14,5 +14,10 @@ export class BlockChainService {
 		let BTCPriceRes = await axios.get('https://blockchain.info/ticker');
 		return BTCPriceRes.data.USD.last;
 	}
-	
+
+	static async getCoinTop10(){
+		let coinPrices = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=5');
+		return coinPrices.data;
+	}
+
 }

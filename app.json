@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Bitcoin Reinvest Mining Calculator",
-    "slug": "bitcoin-reinvest",
+    "name": "Crypto Earnings Calculator",
+    "slug": "crypto-earnings",
     "version": "1.0.0",
     "sdkVersion": "23.0.0",
     "orientation": "portrait",
@@ -11,7 +11,7 @@
     },
     "icon": "./assets/icon.png",
     "android": {
-      "package": "net.toothpickfactory.bitcoinreinvest"
+      "package": "net.toothpickfactory.cryptoearnings"
     }
   }
 }
