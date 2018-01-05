@@ -37,12 +37,13 @@ const styles = StyleSheet.create({
 function ReinvestmentDescription(props) {
     let earnings = props.earningsData.ROI;
     let difference = props.earningsData.difference
+    let name = props.earningsData.name
 
     return (
         <Card title="Total Earnings" 
             containerStyle={styles.cardContainer} 
             titleStyle={styles.titleStyle}>
-            <Text style={{marginBottom:10}}>Your Return On Investment is: </Text>
+            <Text style={{marginBottom:10}}>Your Return On {name} is: </Text>
             <View style={styles.topBorder}></View>
             <View style={styles.projView}>
                 <Text style={styles.projTextLeft}>ROI</Text>

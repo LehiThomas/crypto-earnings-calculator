@@ -7,9 +7,15 @@ export class CalculationService {
 	}
 	
 	static calculateEarnings(currentPrice, originalCost, coin, coinAmount){
-		const difference = currentPrice * originalCost
+		const difference = currentPrice - originalCost
 		const ROI = difference * coinAmount
-		return { ROI: ROI, difference: difference }
+		const name = coin.name
+		const lastDayDiff = coin.percent_change_24h
+		return { 
+			ROI: ROI, 
+			difference: difference,
+			name: name,
+			lastDayDiff: lastDayDiff }
 	}
 }
 

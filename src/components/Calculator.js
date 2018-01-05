@@ -15,10 +15,10 @@ class Calculator extends Component {
             coins: this.props.coins,
             showTheThing: false,
             earningsData: {},
-            currentPrice: 0,
+            currentPrice: this.props.coins[0].price_usd,
             coinAmount: 0,
             originalCost: 0,
-            coin: {}
+            coin: this.props.coins[0]
         };
 
         this.setCoinAmount = this.setCoinAmount.bind(this);
@@ -38,22 +38,23 @@ class Calculator extends Component {
     }
 
     setCoin(coin){
-        this.setState({coin});
+        console.log("here I am", coin)
+        this.setState({ coin });
     }
 
     setCurrentPrice(currentPrice){
-        this.setState({currentPrice});
+        console.log("current price called", currentPrice)
+        this.setState({ currentPrice });
     }
 
     setOriginalCost(originalCost){
-        this.setState({originalCost});
+        this.setState({ originalCost });
     }
 
     figureItOut = () => {
+        console.log("figuring it out...")
         console.log(this.state.currentPrice,
-            this.state.originalCost,
-            this.state.coin,
-            this.state.coinAmount)
+            this.state.coin,)
 
         let earningsData = CalculationService.calculateEarnings(
             this.state.currentPrice,

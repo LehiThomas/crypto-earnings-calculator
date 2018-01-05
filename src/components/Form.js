@@ -9,8 +9,8 @@ class Form extends Component {
 
         this.state= {
             coins: this.props.coins,
-            coin: this.props.coins[1],
-            currentPrice :this.props.coins[1].price_usd
+            coin: this.props.coins[0],
+            currentPrice :this.props.coins[0].price_usd
         }
 
         this.setCoinAmount = this.setCoinAmount.bind(this);
@@ -23,20 +23,22 @@ class Form extends Component {
         this.props.setCoinAmount(coinAmount);
     }
 
-    setCoin(coin){
-        this.setState({
-            currentPrice: coin.price_usd
-        })
-        this.props.setCoin(coin);
-    }
-
     setOriginalCost(cost){
         this.props.setOriginalCost(cost);
     }
 
+    setCoin(coin){
+        this.setState({
+            coin: coin,
+            currentPrice: coin.price_usd
+        })
+        this.props.setCoin(coin);
+        this.setCurrentPrice(coin.price_usd)
+    }
+
     setCurrentPrice(currentPrice){
         this.setState({ currentPrice })
-        this.props.setCurrentPrice(this.state.currentPrice);
+        this.props.setCurrentPrice(currentPrice);
     }
 
     onSubmit = () => {
@@ -50,7 +52,6 @@ class Form extends Component {
                 titleStyle={styles.titleStyle} >
                 <View style={styles.pickerStyles} >
                     <Picker
-                        selectedValue={this.props.coins[1].symbol}
                         mode='dropdown'
                         style={styles.picker}
                         onValueChange = {(coin) => this.setCoin(coin)} >
