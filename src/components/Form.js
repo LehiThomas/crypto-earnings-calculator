@@ -54,8 +54,9 @@ class Form extends Component {
                     <Picker
                         mode='dropdown'
                         style={styles.picker}
+                        selectedValue={this.state.coin}
                         onValueChange = {(coin) => this.setCoin(coin)} >
-                        { this.props.coins.map((coin) => <Picker.Item label={coin.symbol} value={coin} key={coin.id}/>) }
+                        { this.props.coins.map((coin) => <Picker.Item label={coin.name} value={coin} key={coin.id}/>) }
                     </Picker>
                 </View>
                 <View style={styles.formContainer}>

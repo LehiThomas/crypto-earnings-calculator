@@ -16,7 +16,7 @@ export class BlockChainService {
 	}
 
 	static async getCoinTop10(){
-		let coinPrices = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=5');
+		let coinPrices = await axios.get('https://api.coinmarketcap.com/v1/ticker/?limit=50');
 		return coinPrices.data;
 	}
 
